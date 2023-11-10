@@ -1,38 +1,49 @@
 import { useState } from "react";
 import Button from "./Button";
 
+const clearnBoard = [
+  [0, 0, 0],
+  [0, 0, 0],
+  [0, 0, 0],
+];
+
+const winMovements = [
+  [1, 1, 1],
+  [2, 2, 2],
+];
+
 export default function Board() {
   const [stage, setStage] = useState(0);
   const [winner, setWinner] = useState("");
-  const [board, setBoard] = useState([
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0],
-  ]);
-  const winMovements = [
-    [
-      [1, 0, 0],
-      [0, 1, 0],
-      [0, 0, 1],
-    ],
-    [
-      [0, 0, 1],
-      [0, 1, 0],
-      [1, 0, 0],
-    ],
-  ];
+  const [board, setBoard] = useState(clearnBoard);
 
-  const allEqual = (arr) => arr.every((val) => val && val === arr[0]);
+  function checkArraySame(arr) {
+    return arr.every((val) => val && val === arr[0]);
+  }
 
-  function checkWinningMoves() {
-    let result = "none";
-    board.forEach((row, i) => {
-      if (allEqual(row)) {
-        result = i;
-        console.log(result);
+  function checkHorizontalLines(newBoard) {
+    let result = null;
+    newBoard.forEach((row, i) => {
+      if (checkArraySame(row)) {
+        result = i + 1;
         return;
       }
     });
+    return result;
+  }
+
+  function checkVerticalLines(newBoard) {}
+
+  function checkBoard(newBoard) {
+    let hLine = checkHorizontalLines(newBoard);
+    if (hLine) {
+      const finalBoard = board.map((row, i) =>
+        i === hLine - 1 ? row.map(() => 3) : row
+      );
+      setBoard(finalBoard);
+    } else {
+      setBoard(newBoard);
+    }
   }
 
   function handleBoardUpdate(value, row, column) {
@@ -41,10 +52,8 @@ export default function Board() {
         ? rowValue.map((colValue, j) => (j === column ? value : colValue))
         : rowValue
     );
-    setBoard(newBoard);
+    checkBoard(newBoard);
   }
-
-  checkWinningMoves();
 
   return (
     <div className="board">

@@ -29,5 +29,8 @@
     .btn[aria-checked="false"]:hover {
       background-color: #d9d9d9; }
 
+.winner {
+  background-color: lightgreen; }
+
 .hidden {
   opacity: 0; }
