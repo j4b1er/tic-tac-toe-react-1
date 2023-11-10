@@ -1,0 +1,8 @@
+.board {
+  background-color: #121212;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  height: 392px;
+  width: 392px;
+}
