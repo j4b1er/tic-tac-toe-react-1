@@ -32,17 +32,40 @@ export default function Board() {
     return result;
   }
 
-  function checkVerticalLines(newBoard) {}
+  function checkVerticalLines(newBoard, column) {
+    let hArr = [];
+    let result = null;
+    newBoard.forEach((row) => {
+      hArr.push(row[column]);
+      if (hArr.length === 3 && checkArraySame(hArr)) {
+        result = column + 1;
+      }
+    });
+    return result;
+    //This is to get backward slash
+    // newBoard.forEach((row, i) => {
+    //   hArr.push(row[i]);
+    // });
+    // console.log(hArr);
+  }
 
-  function checkBoard(newBoard) {
+  function checkBoard(newBoard, column) {
+    let finalBoard = newBoard;
     let hLine = checkHorizontalLines(newBoard);
+    let vLine = checkVerticalLines(newBoard, column);
     if (hLine) {
-      const finalBoard = board.map((row, i) =>
-        i === hLine - 1 ? row.map(() => 3) : row
+      finalBoard = newBoard.map((row, i) =>
+        i === hLine - 1 ? row.map((col) => 3) : row
+      );
+      setBoard(finalBoard);
+    } else if (vLine) {
+      finalBoard = newBoard.map((row) =>
+        row.map((col, j) => (j === vLine - 1 ? 3 : col))
       );
       setBoard(finalBoard);
     } else {
-      setBoard(newBoard);
+      // checkVerticalLines(newBoard, column);
+      setBoard(finalBoard);
     }
   }
 
@@ -52,7 +75,7 @@ export default function Board() {
         ? rowValue.map((colValue, j) => (j === column ? value : colValue))
         : rowValue
     );
-    checkBoard(newBoard);
+    checkBoard(newBoard, column);
   }
 
   return (
