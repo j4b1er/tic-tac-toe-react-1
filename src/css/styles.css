@@ -10,6 +10,12 @@
   place-content: center;
   height: 100vh; }
 
+.winner {
+  background-color: lightgreen !important; }
+
+.hidden {
+  opacity: 0; }
+
 .board {
   background-color: #121212;
   display: grid;
@@ -28,9 +34,3 @@
     cursor: pointer; }
     .btn[aria-checked="false"]:hover {
       background-color: #d9d9d9; }
-
-.winner {
-  background-color: lightgreen; }
-
-.hidden {
-  opacity: 0; }

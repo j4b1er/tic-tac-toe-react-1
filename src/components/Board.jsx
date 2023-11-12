@@ -9,7 +9,7 @@ const clearnBoard = [
 
 export default function Board() {
   const [stage, setStage] = useState(0);
-  const [winner, setWinner] = useState("");
+  const [winner, setWinner] = useState(0);
   const [board, setBoard] = useState(clearnBoard);
 
   function checkArraySame(arr) {
@@ -73,7 +73,7 @@ export default function Board() {
     return result;
   }
 
-  function checkBoard(newBoard, column) {
+  function checkBoard(newBoard, column, value) {
     let finalBoard = newBoard;
     const hLine = checkHorizontalLines(newBoard);
     const vLine = checkVerticalLines(newBoard, column);
@@ -84,14 +84,17 @@ export default function Board() {
       finalBoard = newBoard.map((row, i) =>
         i === hLine - 1 ? row.map(() => 3) : row
       );
+      setWinner(value);
     } else if (vLine) {
       finalBoard = newBoard.map((row) =>
         row.map((col, j) => (j === vLine - 1 ? 3 : col))
       );
+      setWinner(value);
     } else if (bsLine) {
       finalBoard = newBoard.map((row, i) =>
         row.map((col, j) => (i == j ? 3 : col))
       );
+      setWinner(value);
     } else if (fsLine) {
       finalBoard = newBoard.map((row, i) =>
         row.map((col, j) =>
@@ -100,6 +103,7 @@ export default function Board() {
             : col
         )
       );
+      setWinner(value);
     }
     setBoard(finalBoard);
   }
@@ -110,7 +114,7 @@ export default function Board() {
         ? rowValue.map((colValue, j) => (j === column ? value : colValue))
         : rowValue
     );
-    checkBoard(newBoard, column);
+    checkBoard(newBoard, column, value);
   }
 
   return (
@@ -123,6 +127,7 @@ export default function Board() {
             column={col}
             value={colValue}
             stage={stage}
+            winner={winner}
             setStage={setStage}
             onBoardUpdate={handleBoardUpdate}
           />

@@ -5,6 +5,7 @@ export default function Button({
   column,
   value,
   stage,
+  winner,
   setStage,
   onBoardUpdate,
 }) {
@@ -21,8 +22,8 @@ export default function Button({
   return (
     <button
       className={value === 3 ? "btn winner" : "btn"}
-      onClick={celValue === 0 ? handleButtonClick : () => {}}
-      aria-checked={celValue ? true : false}>
+      onClick={celValue === 0 && winner === 0 ? handleButtonClick : () => {}}
+      aria-checked={celValue || winner ? true : false}>
       <span className={celValue ? "" : "hidden"}>{celValue}</span>
     </button>
   );
