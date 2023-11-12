@@ -7,11 +7,6 @@ const clearnBoard = [
   [0, 0, 0],
 ];
 
-const winMovements = [
-  [1, 1, 1],
-  [2, 2, 2],
-];
-
 export default function Board() {
   const [stage, setStage] = useState(0);
   const [winner, setWinner] = useState("");
@@ -42,31 +37,41 @@ export default function Board() {
       }
     });
     return result;
-    //This is to get backward slash
-    // newBoard.forEach((row, i) => {
-    //   hArr.push(row[i]);
-    // });
-    // console.log(hArr);
+  }
+
+  function checkBackwardsSlash(newBoard) {
+    let xArr = [];
+    let result = null;
+    newBoard.forEach((row, i) => {
+      row[i] !== 0 && xArr.push(row[i]);
+      if (xArr.length === 3 && checkArraySame(xArr)) {
+        result = true;
+      }
+    });
+    return result;
   }
 
   function checkBoard(newBoard, column) {
     let finalBoard = newBoard;
     let hLine = checkHorizontalLines(newBoard);
     let vLine = checkVerticalLines(newBoard, column);
+    let bsLine = checkBackwardsSlash(finalBoard);
+
     if (hLine) {
       finalBoard = newBoard.map((row, i) =>
-        i === hLine - 1 ? row.map((col) => 3) : row
+        i === hLine - 1 ? row.map(() => 3) : row
       );
-      setBoard(finalBoard);
     } else if (vLine) {
       finalBoard = newBoard.map((row) =>
         row.map((col, j) => (j === vLine - 1 ? 3 : col))
       );
-      setBoard(finalBoard);
-    } else {
-      // checkVerticalLines(newBoard, column);
-      setBoard(finalBoard);
+    } else if (bsLine) {
+      finalBoard = newBoard.map((row, i) =>
+        row.map((col, j) => (i == j ? 3 : col))
+      );
+      // console.log(finalBoard);
     }
+    setBoard(finalBoard);
   }
 
   function handleBoardUpdate(value, row, column) {
