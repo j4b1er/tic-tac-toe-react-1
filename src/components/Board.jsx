@@ -40,22 +40,45 @@ export default function Board() {
   }
 
   function checkBackwardsSlash(newBoard) {
-    let xArr = [];
+    let bsArr = [];
     let result = null;
     newBoard.forEach((row, i) => {
-      row[i] !== 0 && xArr.push(row[i]);
-      if (xArr.length === 3 && checkArraySame(xArr)) {
+      row[i] !== 0 && bsArr.push(row[i]);
+      if (bsArr.length === 3 && checkArraySame(bsArr)) {
         result = true;
+        return;
       }
     });
     return result;
   }
 
+  function checkForwardSlash(newBoard) {
+    let fsArr = [];
+    let result = null;
+    newBoard.forEach((row, i) =>
+      row.forEach((col, j) => {
+        if (
+          (i === 1 && j === 1) ||
+          (i === 0 && j === 2) ||
+          (i === 2 && j === 0)
+        ) {
+          col !== 0 && fsArr.push(col);
+        }
+        if (fsArr.length === 3 && checkArraySame(fsArr)) {
+          result = true;
+          return;
+        }
+      })
+    );
+    return result;
+  }
+
   function checkBoard(newBoard, column) {
     let finalBoard = newBoard;
-    let hLine = checkHorizontalLines(newBoard);
-    let vLine = checkVerticalLines(newBoard, column);
-    let bsLine = checkBackwardsSlash(finalBoard);
+    const hLine = checkHorizontalLines(newBoard);
+    const vLine = checkVerticalLines(newBoard, column);
+    const bsLine = checkBackwardsSlash(newBoard);
+    const fsLine = checkForwardSlash(newBoard);
 
     if (hLine) {
       finalBoard = newBoard.map((row, i) =>
@@ -69,7 +92,14 @@ export default function Board() {
       finalBoard = newBoard.map((row, i) =>
         row.map((col, j) => (i == j ? 3 : col))
       );
-      // console.log(finalBoard);
+    } else if (fsLine) {
+      finalBoard = newBoard.map((row, i) =>
+        row.map((col, j) =>
+          (i === 1 && j === 1) || (i === 0 && j === 2) || (i === 2 && j === 0)
+            ? 3
+            : col
+        )
+      );
     }
     setBoard(finalBoard);
   }
