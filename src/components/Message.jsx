@@ -3,7 +3,7 @@ export default function Message({ winner, stage }) {
 
   return winner ? (
     <form>
-      <div className="message">
+      <div className="message pop-up">
         <p>Winner</p>
         <p className="winner-msg">{winnerSign}</p>
         <button>Restart</button>

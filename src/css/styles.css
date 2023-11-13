@@ -11,6 +11,15 @@
   min-height: 100vh;
   background-color: #333d29; }
 
+.pop-up {
+  animation: fade-in 0.4s ease-in-out; }
+
+@keyframes fade-in {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+
 .winner {
   background-color: lightgreen !important;
   color: #333d29 !important; }
