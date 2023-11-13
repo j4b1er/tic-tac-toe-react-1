@@ -1,7 +1,16 @@
 .winner {
   background-color: lightgreen !important;
+  color: $color-secondary-500 !important;
 }
 
 .hidden {
   opacity: 0;
+}
+
+.turn-x {
+  background-color: $color-primary-200 !important;
+}
+
+.turn-o {
+  background-color: $color-secondary-100 !important;
 }

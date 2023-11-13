@@ -1,5 +1,7 @@
 import { useState } from "react";
 import Button from "./Button";
+import Turn from "./Turn";
+import Message from "./Message";
 
 const clearnBoard = [
   [0, 0, 0],
@@ -12,6 +14,11 @@ export default function Board() {
   const [winner, setWinner] = useState(0);
   const [board, setBoard] = useState(clearnBoard);
 
+  /**
+   *
+   * @param {Array} arr one dimentional array to check if values are the same
+   * @returns true or false
+   */
   function checkArraySame(arr) {
     return arr.every((val) => val && val === arr[0]);
   }
@@ -118,21 +125,25 @@ export default function Board() {
   }
 
   return (
-    <div className="board">
-      {board.map((rowValue, row) =>
-        rowValue.map((colValue, col) => (
-          <Button
-            key={`${row}${col}`}
-            row={row}
-            column={col}
-            value={colValue}
-            stage={stage}
-            winner={winner}
-            setStage={setStage}
-            onBoardUpdate={handleBoardUpdate}
-          />
-        ))
-      )}
-    </div>
+    <>
+      <Turn stage={stage} />
+      <Message winner={winner} stage={stage} />
+      <div className="board">
+        {board.map((rowValue, row) =>
+          rowValue.map((colValue, col) => (
+            <Button
+              key={`${row}${col}`}
+              row={row}
+              column={col}
+              value={colValue}
+              stage={stage}
+              winner={winner}
+              setStage={setStage}
+              onBoardUpdate={handleBoardUpdate}
+            />
+          ))
+        )}
+      </div>
+    </>
   );
 }

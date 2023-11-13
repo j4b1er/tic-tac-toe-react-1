@@ -21,7 +21,15 @@ export default function Button({
 
   return (
     <button
-      className={value === 3 ? "btn winner" : "btn"}
+      className={
+        value === 3
+          ? "btn winner"
+          : value === 1
+          ? "btn turn-x"
+          : value === 2
+          ? "btn turn-o"
+          : "btn"
+      }
       onClick={celValue === 0 && winner === 0 ? handleButtonClick : () => {}}
       aria-checked={celValue || winner ? true : false}>
       <span className={celValue ? "" : "hidden"}>{celValue}</span>
