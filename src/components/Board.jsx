@@ -23,16 +23,26 @@ export default function Board() {
     return arr.every((val) => val && val === arr[0]);
   }
 
+  /**
+   *
+   * @param {Array} newBoard Updated array to be checked
+   * @param {Number} row The row where the clicked happened so the function only checks that specific row
+   * @returns the row back if there are at least 3 values and they are all the same
+   */
   function checkHorizontalLines(newBoard, row) {
     let result =
-      newBoard[row].length === 3
-        ? checkArraySame(newBoard[row])
-          ? row + 1
-          : null
+      newBoard[row].length === 3 && checkArraySame(newBoard[row])
+        ? row + 1
         : null;
     return result;
   }
 
+  /**
+   *
+   * @param {Array} newBoard Updated array to be checked
+   * @param {Number} column The column where the click happened so the function only checks that specific column
+   * @returns the column back if there are at least 3 values and they are all the same
+   */
   function checkVerticalLines(newBoard, column) {
     let hArr = [];
     let result = null;
@@ -45,9 +55,14 @@ export default function Board() {
     return result;
   }
 
+  /**
+   *
+   * @param {Array} newBoard Updated array to be checked
+   * @returns true of false if there are at least 3 values and they are all the same
+   */
   function checkBackwardsSlash(newBoard) {
     let bsArr = [];
-    let result = null;
+    let result = false;
     newBoard.forEach((row, i) => {
       row[i] !== 0 && bsArr.push(row[i]);
       if (bsArr.length === 3 && checkArraySame(bsArr)) {
@@ -58,9 +73,14 @@ export default function Board() {
     return result;
   }
 
+  /**
+   *
+   * @param {Array} newBoard Updated array to be checked
+   * @returns true of false if there are at least 3 values and they are all the same
+   */
   function checkForwardSlash(newBoard) {
     let fsArr = [];
-    let result = null;
+    let result = false;
     newBoard.forEach((row, i) =>
       row.forEach((col, j) => {
         if (
@@ -79,6 +99,13 @@ export default function Board() {
     return result;
   }
 
+  /**
+   *
+   * @param {Array} newBoard Updated array
+   * @param {Number} column The column where the click happened
+   * @param {Number} row The row where the click happened
+   * @param {Number} value The number repesenting the user play 1 = X and 2 = O
+   */
   function checkBoard(newBoard, column, row, value) {
     let finalBoard = newBoard;
     const hLine = checkHorizontalLines(newBoard, row);
@@ -114,6 +141,12 @@ export default function Board() {
     setBoard(finalBoard);
   }
 
+  /**
+   *
+   * @param {Number} value The number repesenting the user play 1 = X and 2 = O
+   * @param {Number} row The row where the click happened
+   * @param {Number} column The column where the click happened
+   */
   function handleBoardUpdate(value, row, column) {
     const newBoard = board.map((rowValue, i) =>
       i === row
