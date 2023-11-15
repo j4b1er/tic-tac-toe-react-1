@@ -23,14 +23,13 @@ export default function Board() {
     return arr.every((val) => val && val === arr[0]);
   }
 
-  function checkHorizontalLines(newBoard) {
-    let result = null;
-    newBoard.forEach((row, i) => {
-      if (checkArraySame(row)) {
-        result = i + 1;
-        return;
-      }
-    });
+  function checkHorizontalLines(newBoard, row) {
+    let result =
+      newBoard[row].length === 3
+        ? checkArraySame(newBoard[row])
+          ? row + 1
+          : null
+        : null;
     return result;
   }
 
@@ -80,9 +79,9 @@ export default function Board() {
     return result;
   }
 
-  function checkBoard(newBoard, column, value) {
+  function checkBoard(newBoard, column, row, value) {
     let finalBoard = newBoard;
-    const hLine = checkHorizontalLines(newBoard);
+    const hLine = checkHorizontalLines(newBoard, row);
     const vLine = checkVerticalLines(newBoard, column);
     const bsLine = checkBackwardsSlash(newBoard);
     const fsLine = checkForwardSlash(newBoard);
@@ -121,7 +120,7 @@ export default function Board() {
         ? rowValue.map((colValue, j) => (j === column ? value : colValue))
         : rowValue
     );
-    checkBoard(newBoard, column, value);
+    checkBoard(newBoard, column, row, value);
   }
 
   return (
