@@ -2,6 +2,7 @@ import { useState } from "react";
 import Button from "./Button";
 import Turn from "./Turn";
 import Message from "./Message";
+import RoomNumber from "./Room";
 
 const cleanBoard = [
   [0, 0, 0],
@@ -10,7 +11,7 @@ const cleanBoard = [
 ];
 
 function randomGameId() {
-  return Math.floor(Math.random() * 100);
+  return Math.floor(Math.random() * 10000000);
 }
 
 export default function Board() {
