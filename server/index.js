@@ -1,13 +1,19 @@
 import express from "express";
-
-const port = process.env.PORT ?? 3000;
+import { createServer } from "http";
+import { Server } from "socket.io";
+import cors from "cors";
 
 const app = express();
+app.use(cors());
 
-app.get("/", (req, res) => {
-  res.sendFile(process.cwd() + "/index.html");
+const httpServer = createServer(app);
+
+const io = new Server(httpServer, {
+  cors: {
+    origin: "http://localhost:3000",
+  },
 });
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+httpServer.listen(3001, () => {
+  console.log("server running");
 });

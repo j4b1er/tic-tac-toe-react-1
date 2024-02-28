@@ -3,16 +3,28 @@ import Button from "./Button";
 import Turn from "./Turn";
 import Message from "./Message";
 
-const clearnBoard = [
+const cleanBoard = [
   [0, 0, 0],
   [0, 0, 0],
   [0, 0, 0],
 ];
 
+function randomGameId() {
+  return Math.floor(Math.random() * 100);
+}
+
 export default function Board() {
   const [stage, setStage] = useState(0);
   const [winner, setWinner] = useState(0);
-  const [board, setBoard] = useState(clearnBoard);
+  const [board, setBoard] = useState(cleanBoard);
+  const [gameId, setGameID] = useState(randomGameId);
+
+  function resetGame() {
+    setStage(0);
+    setWinner(0);
+    setBoard(cleanBoard);
+    setGameID(randomGameId);
+  }
 
   /**
    *
@@ -159,12 +171,12 @@ export default function Board() {
   return (
     <>
       <Turn stage={stage} />
-      <Message winner={winner} stage={stage} />
+      <Message winner={winner} stage={stage} resetGame={resetGame} />
       <div className="board">
         {board.map((rowValue, row) =>
           rowValue.map((colValue, col) => (
             <Button
-              key={`${row}${col}`}
+              key={`${row}${col}${gameId}`}
               row={row}
               column={col}
               value={colValue}
