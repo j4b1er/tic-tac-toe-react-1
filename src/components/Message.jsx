@@ -7,7 +7,7 @@ export default function Message({ winner, stage, resetGame }) {
   }
 
   return winner ? (
-    <form onSubmit={handleSubmit}>
+    <form className="messageForm" onSubmit={handleSubmit}>
       <div className="message pop-up">
         <p>Winner</p>
         <p className="winner-msg">{winnerSign}</p>
@@ -16,7 +16,7 @@ export default function Message({ winner, stage, resetGame }) {
     </form>
   ) : (
     stage === 9 && (
-      <form onSubmit={handleSubmit}>
+      <form className="messageForm" onSubmit={handleSubmit}>
         <div className="message">
           <p>Its a tie!</p>
           <button>Restart</button>

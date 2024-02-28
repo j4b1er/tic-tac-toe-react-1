@@ -2,7 +2,6 @@ import { useState } from "react";
 import Button from "./Button";
 import Turn from "./Turn";
 import Message from "./Message";
-import RoomNumber from "./Room";
 
 const cleanBoard = [
   [0, 0, 0],
@@ -14,7 +13,7 @@ function randomGameId() {
   return Math.floor(Math.random() * 10000000);
 }
 
-export default function Board() {
+export default function Board({ roomNum }) {
   const [stage, setStage] = useState(0);
   const [winner, setWinner] = useState(0);
   const [board, setBoard] = useState(cleanBoard);
@@ -171,6 +170,7 @@ export default function Board() {
 
   return (
     <>
+      {roomNum}
       <Turn stage={stage} />
       <Message winner={winner} stage={stage} resetGame={resetGame} />
       <div className="board">

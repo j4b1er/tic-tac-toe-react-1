@@ -1,0 +1,98 @@
+.mainMenu {
+  display: flex;
+  gap: 1rem;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+
+  & > * {
+    width: 332px;
+    border-radius: 0.5rem;
+  }
+}
+
+.gameTitle {
+  background-color: $color-primary-400;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+
+  padding: 0.75rem;
+  text-align: center;
+
+  & h1 {
+    text-transform: uppercase;
+    font-size: 4rem;
+    font-weight: 400;
+    color: $color-secondary-200;
+  }
+}
+
+.createGame {
+  cursor: pointer;
+  border: none;
+  background-color: $color-secondary-300;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+
+  font-size: 2rem;
+  color: $color-secondary-100;
+
+  height: 5rem;
+  padding: 1rem;
+
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: $color-secondary-200;
+    color: $color-secondary-500;
+  }
+}
+
+.joinGame {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+
+  height: 5rem;
+
+  & > * {
+    width: 100%;
+    border-radius: 0.5rem;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  & > input {
+    grid-column: span 2;
+    border: none;
+    height: 100%;
+    background-color: $color-secondary-200;
+
+    padding: 1rem;
+
+    font-size: 1.25rem;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  & > button {
+    cursor: pointer;
+    border: none;
+    background-color: $color-secondary-300;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+
+    font-size: 2rem;
+    color: $color-secondary-100;
+
+    height: 5rem;
+    padding: 1rem;
+
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: $color-secondary-200;
+      color: $color-secondary-500;
+    }
+  }
+}
