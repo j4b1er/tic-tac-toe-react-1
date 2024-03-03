@@ -9,14 +9,17 @@ export default function JoinRoom({ onSetRoom }) {
   }
 
   return (
-    <form className="joinGame" onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Room number..."
-        value={roomInput}
-        onChange={(e) => setRoomInput(e.target.value)}
-      />
-      <button>Join</button>
-    </form>
+    <>
+      <div className="joinTitle">Join a Room</div>
+      <form className="joinGame" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Room number..."
+          value={roomInput}
+          onChange={(e) => setRoomInput(e.target.value)}
+        />
+        <button>Join</button>
+      </form>
+    </>
   );
 }

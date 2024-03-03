@@ -5,7 +5,7 @@ function randomGameId() {
 export default function CreateRoom({ onSetRoom }) {
   return (
     <button className="createGame" onClick={() => onSetRoom(randomGameId)}>
-      Create Room
+      Create a Room
     </button>
   );
 }
