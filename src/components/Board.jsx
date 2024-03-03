@@ -13,17 +13,17 @@ function randomGameId() {
   return Math.floor(Math.random() * 10000000);
 }
 
-export default function Board({ roomNum }) {
+export default function Board({ roomNum, board, setBoard, playBoard }) {
   const [stage, setStage] = useState(0);
   const [winner, setWinner] = useState(0);
-  const [board, setBoard] = useState(cleanBoard);
+  // const [board, setBoard] = useState(cleanBoard);
   const [gameId, setGameID] = useState(randomGameId);
 
   function resetGame() {
     setStage(0);
     setWinner(0);
-    setBoard(cleanBoard);
-    setGameID(randomGameId);
+    // setBoard(cleanBoard);
+    // setGameID(randomGameId);
   }
 
   /**
@@ -151,6 +151,7 @@ export default function Board({ roomNum }) {
       setWinner(value);
     }
     setBoard(finalBoard);
+    playBoard(finalBoard);
   }
 
   /**

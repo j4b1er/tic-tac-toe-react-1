@@ -18,8 +18,15 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   console.log(`user connected ${socket.id}`);
 
-  socket.on("set_room", (room) => {
-    console.log(room);
+  socket.on("set_room", async (room) => {
+    await socket.join(room.id);
+    socket.emit("room_created", room.id);
+    console.log(`connected ${socket.id} to room ${room.id}`);
+  });
+
+  socket.on("play_board", (game) => {
+    socket.to(game.room).emit("receive_board", game.board);
+    // console.log(game.board);
   });
 });
 

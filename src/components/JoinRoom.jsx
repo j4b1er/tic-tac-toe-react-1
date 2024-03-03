@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-export default function JoinRoom({ onSetRoom }) {
+export default function JoinRoom({ onJoinRoom }) {
   const [roomInput, setRoomInput] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
-    onSetRoom(Number(roomInput));
+    onJoinRoom(e, Number(roomInput));
   }
 
   return (
