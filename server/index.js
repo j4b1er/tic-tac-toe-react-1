@@ -25,8 +25,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("play_board", (game) => {
-    socket.to(game.room).emit("receive_board", game.board);
-    // console.log(game.board);
+    socket.to(game.room).emit("receive_board", game);
   });
 });
 

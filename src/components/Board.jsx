@@ -3,21 +3,19 @@ import Button from "./Button";
 import Turn from "./Turn";
 import Message from "./Message";
 
-const cleanBoard = [
-  [0, 0, 0],
-  [0, 0, 0],
-  [0, 0, 0],
-];
-
-function randomGameId() {
-  return Math.floor(Math.random() * 10000000);
-}
-
-export default function Board({ roomNum, board, setBoard, playBoard }) {
-  const [stage, setStage] = useState(0);
-  const [winner, setWinner] = useState(0);
+export default function Board({
+  roomNum,
+  board,
+  stage,
+  setStage,
+  winner,
+  setWinner,
+  setBoard,
+  playBoard,
+}) {
+  // const [stage, setStage] = useState(0);
+  // const [winner, setWinner] = useState(0);
   // const [board, setBoard] = useState(cleanBoard);
-  const [gameId, setGameID] = useState(randomGameId);
 
   function resetGame() {
     setStage(0);
@@ -150,6 +148,7 @@ export default function Board({ roomNum, board, setBoard, playBoard }) {
       );
       setWinner(value);
     }
+    console.log(stage);
     setBoard(finalBoard);
     playBoard(finalBoard);
   }
@@ -175,10 +174,11 @@ export default function Board({ roomNum, board, setBoard, playBoard }) {
       <Turn stage={stage} />
       <Message winner={winner} stage={stage} resetGame={resetGame} />
       <div className="board">
+        {console.log(board)}
         {board.map((rowValue, row) =>
           rowValue.map((colValue, col) => (
             <Button
-              key={`${row}${col}${gameId}`}
+              key={`${row}${col}${roomNum}`}
               row={row}
               column={col}
               value={colValue}

@@ -21,6 +21,8 @@ function randomGameId() {
 export default function App() {
   const [room, setRoom] = useState(null);
   const [board, setBoard] = useState(cleanBoard);
+  const [stage, setStage] = useState(0);
+  const [winner, setWinner] = useState(0);
 
   useEffect(() => {
     if (!room) {
@@ -28,14 +30,12 @@ export default function App() {
         setRoom(room);
       });
     }
-    socket.on("receive_board", (board) => {
-      setBoard(board);
+    socket.on("receive_board", (game) => {
+      setBoard(game.board);
+      setStage(game.stage);
+      setWinner(game.winner);
     });
   }, [socket]);
-
-  // useEffect(() => {
-  //   socket.emit("play_board", { board, room });
-  // }, [board]);
 
   function createRoom(e) {
     e.preventDefault();
@@ -48,7 +48,7 @@ export default function App() {
   }
 
   function playBoard(board) {
-    socket.emit("play_board", { board, room });
+    socket.emit("play_board", { board, stage, winner, room });
   }
 
   return (
@@ -64,6 +64,10 @@ export default function App() {
           roomNum={room}
           board={board}
           setBoard={setBoard}
+          stage={stage}
+          setStage={setStage}
+          winner={winner}
+          setWinner={setWinner}
           playBoard={playBoard}
         />
       )}
