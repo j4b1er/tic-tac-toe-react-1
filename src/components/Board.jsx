@@ -148,7 +148,6 @@ export default function Board({
       );
       setWinner(value);
     }
-    console.log(stage);
     setBoard(finalBoard);
     playBoard(finalBoard);
   }
@@ -174,7 +173,6 @@ export default function Board({
       <Turn stage={stage} />
       <Message winner={winner} stage={stage} resetGame={resetGame} />
       <div className="board">
-        {console.log(board)}
         {board.map((rowValue, row) =>
           rowValue.map((colValue, col) => (
             <Button

@@ -26,6 +26,9 @@ export default function App() {
 
   useEffect(() => {
     if (!room) {
+      socket.on("max_players", (room) => {
+        console.log(`The room ${room} is full`);
+      });
       socket.on("room_created", (room) => {
         setRoom(room);
       });
