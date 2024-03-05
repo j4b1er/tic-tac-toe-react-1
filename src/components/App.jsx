@@ -23,6 +23,9 @@ export default function App() {
   const [board, setBoard] = useState(cleanBoard);
   const [stage, setStage] = useState(0);
   const [winner, setWinner] = useState(0);
+  const [userName, setUserName] = useState(
+    JSON.parse(localStorage.getItem("username")) || ""
+  );
 
   useEffect(() => {
     if (!room) {
@@ -42,6 +45,7 @@ export default function App() {
 
   function createRoom(e) {
     e.preventDefault();
+    localStorage.setItem("username", JSON.stringify(userName));
     if (!room) socket.emit("set_room", { id: randomGameId() });
   }
 
@@ -59,7 +63,11 @@ export default function App() {
       {room === null ? (
         <MainMenu>
           <GameTitle />
-          <CreateRoom onCreateRoom={createRoom} />
+          <CreateRoom
+            onCreateRoom={createRoom}
+            userName={userName}
+            setUserName={setUserName}
+          />
           <JoinRoom onJoinRoom={joinRoom} />
         </MainMenu>
       ) : (

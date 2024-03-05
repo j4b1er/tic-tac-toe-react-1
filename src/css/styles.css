@@ -143,21 +143,34 @@ button {
     font-weight: 400;
     color: #a4ac86; }
 
-.createGame {
-  cursor: pointer;
-  border: none;
-  background-color: #656d4a;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
-  font-size: 2rem;
-  color: #c2c5aa;
-  border-radius: 0.5rem;
-  width: 100%;
-  height: 5rem;
-  padding: 1rem;
-  transition: all 0.2s; }
-  .createGame:hover {
+.createGameForm {
+  display: flex;
+  gap: 1rem;
+  flex-flow: column nowrap; }
+  .createGameForm > * {
+    height: 5rem;
+    border-radius: 0.5rem;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+    width: 100%; }
+  .createGameForm > input {
+    border: none;
     background-color: #a4ac86;
-    color: #333d29; }
+    padding: 1rem;
+    font-size: 1.25rem; }
+    .createGameForm > input:focus {
+      outline: none; }
+  .createGameForm > button {
+    cursor: pointer;
+    border: none;
+    background-color: #656d4a;
+    font-size: 2rem;
+    color: #c2c5aa;
+    height: 5rem;
+    padding: 1rem;
+    transition: all 0.2s; }
+    .createGameForm > button:hover {
+      background-color: #a4ac86;
+      color: #333d29; }
 
 .joinTitle {
   background-color: #7f4f24;

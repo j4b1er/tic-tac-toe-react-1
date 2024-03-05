@@ -34,6 +34,11 @@ io.on("connection", (socket) => {
   socket.on("play_board", (game) => {
     socket.to(game.room).emit("receive_board", game);
   });
+
+  socket.on("disconnecting", () => {
+    let roomsArray = Array.from(socket.rooms);
+    // if(roomsArray.length < )
+  });
 });
 
 server.listen(3001, () => {
