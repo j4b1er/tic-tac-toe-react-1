@@ -22,7 +22,8 @@ io.on("connection", (socket) => {
     const roomPlayers = await io.of("/").in(room.id).fetchSockets();
 
     if (roomPlayers.length < 2) {
-      console.log(`connected ${socket.id} to room ${room.id}`);
+      console.log(`connected ${room.user} to room ${room.id}`);
+      socket.data.user = room.user;
       socket.join(room.id);
       socket.emit("room_created", room.id);
     } else {
@@ -37,7 +38,13 @@ io.on("connection", (socket) => {
 
   socket.on("disconnecting", () => {
     let roomsArray = Array.from(socket.rooms);
-    // if(roomsArray.length < )
+    const userDisc = socket.data.user;
+    if (roomsArray.length >= 2) {
+      socket.to(roomsArray[1]).emit("user_disconnected", userDisc);
+      // console.log(
+      //   `${socket.data.user} disconnected from room ${roomsArray[1]}`
+      // );
+    }
   });
 });
 

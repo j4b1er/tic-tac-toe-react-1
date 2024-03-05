@@ -41,17 +41,21 @@ export default function App() {
       setStage(game.stage);
       setWinner(game.winner);
     });
+
+    socket.on("user_disconnected", (user) => {
+      console.log(`${user} disconnected`);
+    });
   }, [socket]);
 
   function createRoom(e) {
     e.preventDefault();
     localStorage.setItem("username", JSON.stringify(userName));
-    if (!room) socket.emit("set_room", { id: randomGameId() });
+    if (!room) socket.emit("set_room", { id: randomGameId(), user: userName });
   }
 
   function joinRoom(e, roomEntered) {
     e.preventDefault();
-    if (!room) socket.emit("set_room", { id: roomEntered });
+    if (!room) socket.emit("set_room", { id: roomEntered, user: userName });
   }
 
   function playBoard(board) {
