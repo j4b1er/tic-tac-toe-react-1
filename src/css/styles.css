@@ -143,6 +143,40 @@ button {
     font-weight: 400;
     color: #a4ac86; }
 
+.userInfo {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+  height: 5rem; }
+  .userInfo > * {
+    height: 5rem;
+    border-radius: 0.5rem;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+    width: 100%; }
+  .userInfo > span {
+    grid-column: span 2;
+    background-color: #7f4f24;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    overflow: hidden;
+    text-wrap: wrap;
+    font-size: 2rem;
+    font-weight: 400;
+    color: #a4ac86; }
+  .userInfo > button {
+    cursor: pointer;
+    border: none;
+    background-color: #656d4a;
+    font-size: 2rem;
+    color: #c2c5aa;
+    height: 5rem;
+    padding: 1rem;
+    transition: all 0.2s; }
+    .userInfo > button:hover {
+      background-color: #a4ac86;
+      color: #333d29; }
+
 .createGameForm {
   display: flex;
   gap: 1rem;
@@ -152,13 +186,6 @@ button {
     border-radius: 0.5rem;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
     width: 100%; }
-  .createGameForm > input {
-    border: none;
-    background-color: #a4ac86;
-    padding: 1rem;
-    font-size: 1.25rem; }
-    .createGameForm > input:focus {
-      outline: none; }
   .createGameForm > button {
     cursor: pointer;
     border: none;

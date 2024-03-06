@@ -53,6 +53,11 @@ export default function App() {
     localStorage.setItem("username", JSON.stringify(username));
   }
 
+  function deleteUser() {
+    localStorage.removeItem("username");
+    setUserName("");
+  }
+
   function createRoom(e) {
     e.preventDefault();
     if (!room) socket.emit("set_room", { id: randomGameId(), user: userName });
@@ -76,7 +81,11 @@ export default function App() {
             <Username onCreateUsername={createUsername} />
           ) : (
             <>
-              <CreateRoom onCreateRoom={createRoom} userName={userName} />
+              <CreateRoom
+                onCreateRoom={createRoom}
+                userName={userName}
+                onDeleteUser={deleteUser}
+              />
               <JoinRoom onJoinRoom={joinRoom} />
             </>
           )}

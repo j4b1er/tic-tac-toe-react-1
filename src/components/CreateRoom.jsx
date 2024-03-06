@@ -1,18 +1,18 @@
-// function randomGameId() {
-//   return Math.floor(Math.random() * 10000000);
-// }
+export default function CreateRoom({ onCreateRoom, userName, onDeleteUser }) {
+  function handleLogout(e) {
+    e.preventDefault();
+    onDeleteUser();
+  }
 
-export default function CreateRoom({ onCreateRoom, userName }) {
   return (
-    <form className="createGameForm" onSubmit={onCreateRoom}>
-      {/* <input
-        type="text"
-        name="user"
-        id="user"
-        placeholder="Username..."
-        autoComplete="off"
-      /> */}
-      <button>Create a Room</button>
-    </form>
+    <>
+      <form className="userInfo" onSubmit={handleLogout}>
+        <span>{`Hi, ${userName}`}</span>
+        <button>Logout</button>
+      </form>
+      <form className="createGameForm" onSubmit={onCreateRoom}>
+        <button>Create a Room</button>
+      </form>
+    </>
   );
 }
