@@ -214,3 +214,35 @@ button {
     .joinGame > button:hover {
       background-color: #a4ac86;
       color: #333d29; }
+
+.userName {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+  height: 5rem; }
+  .userName > * {
+    width: 100%;
+    border-radius: 0.5rem;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5); }
+  .userName > input {
+    grid-column: span 2;
+    border: none;
+    height: 100%;
+    background-color: #a4ac86;
+    padding: 1rem;
+    font-size: 1.25rem; }
+    .userName > input:focus {
+      outline: none; }
+  .userName > button {
+    cursor: pointer;
+    border: none;
+    background-color: #656d4a;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+    font-size: 2rem;
+    color: #c2c5aa;
+    height: 5rem;
+    padding: 1rem;
+    transition: all 0.2s; }
+    .userName > button:hover {
+      background-color: #a4ac86;
+      color: #333d29; }

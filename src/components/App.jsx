@@ -5,6 +5,7 @@ import GameTitle from "./GameTitle";
 import CreateRoom from "./CreateRoom";
 import JoinRoom from "./JoinRoom";
 import { io } from "socket.io-client";
+import Username from "./Username";
 
 const socket = io.connect("http://localhost:3001");
 
@@ -47,9 +48,13 @@ export default function App() {
     });
   }, [socket]);
 
+  function createUsername(username) {
+    setUserName(username);
+    localStorage.setItem("username", JSON.stringify(username));
+  }
+
   function createRoom(e) {
     e.preventDefault();
-    localStorage.setItem("username", JSON.stringify(userName));
     if (!room) socket.emit("set_room", { id: randomGameId(), user: userName });
   }
 
@@ -67,12 +72,14 @@ export default function App() {
       {room === null ? (
         <MainMenu>
           <GameTitle />
-          <CreateRoom
-            onCreateRoom={createRoom}
-            userName={userName}
-            setUserName={setUserName}
-          />
-          <JoinRoom onJoinRoom={joinRoom} />
+          {userName === "" ? (
+            <Username onCreateUsername={createUsername} />
+          ) : (
+            <>
+              <CreateRoom onCreateRoom={createRoom} userName={userName} />
+              <JoinRoom onJoinRoom={joinRoom} />
+            </>
+          )}
         </MainMenu>
       ) : (
         <Board
