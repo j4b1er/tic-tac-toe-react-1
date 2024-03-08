@@ -33,7 +33,19 @@ export default function App() {
         setRoom(room);
       });
       socket.on("room_joined", (room) => {
-        setRoom(room);
+        switch (room.status) {
+          case 1:
+            setRoom(room.id);
+            break;
+          case 2:
+            console.log("Room not found");
+            break;
+        }
+        // if (room.status === 1) {
+        //   setRoom(room.id);
+        // } else {
+        //   console.log("Room not found");
+        // }
       });
     }
     socket.on("receive_board", (game) => {
