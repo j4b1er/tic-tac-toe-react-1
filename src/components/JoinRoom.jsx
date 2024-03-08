@@ -5,7 +5,7 @@ export default function JoinRoom({ onJoinRoom }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    onJoinRoom(e, Number(roomInput));
+    onJoinRoom(Number(roomInput));
   }
 
   return (

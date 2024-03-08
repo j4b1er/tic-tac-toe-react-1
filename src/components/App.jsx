@@ -23,12 +23,10 @@ export default function App() {
   const [userName, setUserName] = useState(
     JSON.parse(localStorage.getItem("username")) || ""
   );
+  const [enemy, setEnemy] = useState("");
 
   useEffect(() => {
     if (!room) {
-      socket.on("max_players", (room) => {
-        console.log(`The room ${room} is full`);
-      });
       socket.on("room_created", (room) => {
         setRoom(room);
       });
@@ -36,18 +34,21 @@ export default function App() {
         switch (room.status) {
           case 1:
             setRoom(room.id);
+            setEnemy(room.master);
             break;
           case 2:
             console.log("Room not found");
             break;
+          case 3:
+            console.log(`The Room ${room.id} is full`);
+            break;
         }
-        // if (room.status === 1) {
-        //   setRoom(room.id);
-        // } else {
-        //   console.log("Room not found");
-        // }
       });
     }
+    socket.on("enemy_joined", (enemy) => {
+      setEnemy(enemy.enemy);
+      console.log(`${enemy.enemy} joined the room`);
+    });
     socket.on("receive_board", (game) => {
       setBoard(game.board);
       setStage(game.stage);
@@ -77,13 +78,13 @@ export default function App() {
       });
   }
 
-  function joinRoom(e, roomEntered) {
-    e.preventDefault();
-    if (!room) socket.emit("join_room", { id: roomEntered, user: userName });
+  function joinRoom(roomEntered) {
+    if (!room)
+      socket.emit("join_room", { roomId: roomEntered, user: userName });
   }
 
   function playBoard(board) {
-    socket.emit("play_board", { board, stage, winner, room });
+    socket.emit("play_board", { board, stage, winner, room, user: userName });
   }
 
   return (
@@ -107,6 +108,7 @@ export default function App() {
       ) : (
         <Board
           roomNum={room}
+          enemy={enemy}
           board={board}
           setBoard={setBoard}
           stage={stage}

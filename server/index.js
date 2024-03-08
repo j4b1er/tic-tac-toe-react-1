@@ -16,9 +16,13 @@ const io = new Server(server, {
 });
 
 //functions
-function randomGameId(min, max) {
+function randomNum(min, max, rooms = false) {
   let num = Math.floor(Math.random() * (max - min) + min);
-  return roomsArray.includes(num) ? randomGameId(1, 1000000) : num;
+  return rooms
+    ? roomsArray.includes(num)
+      ? randomNum(1, 1000000, true)
+      : num
+    : num;
 }
 
 //variables
@@ -27,27 +31,41 @@ let roomsArray = [];
 io.on("connection", (socket) => {
   console.log(`user connected ${socket.id}`);
 
-  socket.on("set_room", (room) => {
-    const roomID = randomGameId(1, 1000000);
-    roomsArray.push(roomID);
+  //player creates the room
+  socket.on("set_room", (master) => {
+    const roomID = randomNum(1, 1000000, true);
+    socket.data.user = master.user;
+    roomsArray.push({ id: roomID, master: master.user });
+    socket.join(roomID);
+    // console.log(`${socket.data.user} created Room ${roomID}`);
     socket.emit("room_created", roomID);
-    socket.data.user = room.user;
   });
 
-  socket.on("join_room", async (room) => {
-    if (roomsArray.includes(room.id)) {
-      const roomPlayers = await io.of("/").in(room.id).fetchSockets();
-
+  //2nd player join an existing room
+  socket.on("join_room", async (enemy) => {
+    const roomObj = roomsArray.filter((obj) => obj.id === enemy.roomId);
+    console.log(roomObj);
+    if (roomObj.length) {
+      const roomPlayers = await io.of("/").in(enemy.roomId).fetchSockets();
       if (roomPlayers.length < 2) {
-        console.log(`connected ${room.user} to room ${room.id}`);
-        socket.join(room.id);
-        socket.emit("room_joined", { id: room.id, status: 1 });
+        // console.log(`connected ${room.user} to room ${room.id}`);
+        socket.data.user = enemy.user;
+        socket.join(enemy.roomId);
+        // const playerTurn = randomNum(1, 3);
+        socket.emit("room_joined", {
+          id: enemy.roomId,
+          master: roomObj[0].master,
+          status: 1,
+        });
+        socket.to(enemy.roomId).emit("enemy_joined", { enemy: enemy.user });
       } else {
-        socket.emit("max_players", room.id);
-        console.log("room full");
+        //room full
+        socket.emit("room_joined", { id: enemy.roomId, status: 3 });
+        // console.log("room full");
       }
     } else {
-      socket.emit("room_joined", { id: room.id, status: 2 });
+      //room not found
+      socket.emit("room_joined", { id: enemy.roomId, status: 2 });
     }
   });
 

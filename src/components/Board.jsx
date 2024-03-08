@@ -5,6 +5,7 @@ import Message from "./Message";
 
 export default function Board({
   roomNum,
+  enemy,
   board,
   stage,
   setStage,
@@ -169,7 +170,7 @@ export default function Board({
 
   return (
     <>
-      {roomNum}
+      {`${roomNum}-${enemy}`}
       <Turn stage={stage} />
       <Message winner={winner} stage={stage} resetGame={resetGame} />
       <div className="board">
