@@ -15,10 +15,6 @@ const cleanBoard = [
   [0, 0, 0],
 ];
 
-function randomGameId() {
-  return Math.floor(Math.random() * 10000000);
-}
-
 export default function App() {
   const [room, setRoom] = useState(null);
   const [board, setBoard] = useState(cleanBoard);
@@ -34,6 +30,9 @@ export default function App() {
         console.log(`The room ${room} is full`);
       });
       socket.on("room_created", (room) => {
+        setRoom(room);
+      });
+      socket.on("room_joined", (room) => {
         setRoom(room);
       });
     }
@@ -60,12 +59,15 @@ export default function App() {
 
   function createRoom(e) {
     e.preventDefault();
-    if (!room) socket.emit("set_room", { id: randomGameId(), user: userName });
+    if (!room)
+      socket.emit("set_room", {
+        user: userName,
+      });
   }
 
   function joinRoom(e, roomEntered) {
     e.preventDefault();
-    if (!room) socket.emit("set_room", { id: roomEntered, user: userName });
+    if (!room) socket.emit("join_room", { id: roomEntered, user: userName });
   }
 
   function playBoard(board) {

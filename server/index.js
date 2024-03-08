@@ -3,6 +3,11 @@ import { createServer } from "node:http";
 import { Server } from "socket.io";
 import cors from "cors";
 
+function randomGameId(min, max) {
+  let num = Math.floor(Math.random() * (max - min) + min);
+  return roomsArray.includes(num) ? randomGameId(1, 10000000) : num;
+}
+
 const app = express();
 app.use(cors());
 
@@ -15,17 +20,25 @@ const io = new Server(server, {
   },
 });
 
+let roomsArray = [];
+
 io.on("connection", (socket) => {
   console.log(`user connected ${socket.id}`);
 
-  socket.on("set_room", async (room) => {
+  socket.on("set_room", (room) => {
+    const roomID = randomGameId(1, 10000000);
+    roomsArray.push(roomID);
+    socket.emit("room_created", roomID);
+    socket.data.user = room.user;
+  });
+
+  socket.on("join_room", async (room) => {
     const roomPlayers = await io.of("/").in(room.id).fetchSockets();
 
     if (roomPlayers.length < 2) {
       console.log(`connected ${room.user} to room ${room.id}`);
-      socket.data.user = room.user;
       socket.join(room.id);
-      socket.emit("room_created", room.id);
+      socket.emit("room_joined", room.id);
     } else {
       socket.emit("max_players", room.id);
       console.log("room full");
