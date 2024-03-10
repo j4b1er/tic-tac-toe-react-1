@@ -44,11 +44,11 @@ io.on("connection", (socket) => {
   //2nd player join an existing room
   socket.on("join_room", async (enemy) => {
     const roomObj = roomsArray.filter((obj) => obj.id === enemy.roomId);
-    console.log(roomObj);
+    console.log(roomObj.length);
     if (roomObj.length) {
       const roomPlayers = await io.of("/").in(enemy.roomId).fetchSockets();
       if (roomPlayers.length < 2) {
-        // console.log(`connected ${room.user} to room ${room.id}`);
+        // console.log(`connected ${enemy.user} to room ${enemy.id}`);
         socket.data.user = enemy.user;
         socket.join(enemy.roomId);
         // const playerTurn = randomNum(1, 3);
