@@ -7,6 +7,7 @@ export default function Board({
   roomNum,
   enemy,
   board,
+  turn,
   stage,
   setStage,
   winner,
@@ -180,6 +181,7 @@ export default function Board({
               key={`${row}${col}${roomNum}`}
               row={row}
               column={col}
+              turn={turn}
               value={colValue}
               stage={stage}
               winner={winner}

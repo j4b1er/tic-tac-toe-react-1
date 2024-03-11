@@ -3,6 +3,7 @@ import { useState } from "react";
 export default function Button({
   row,
   column,
+  turn,
   value,
   stage,
   winner,
@@ -30,6 +31,7 @@ export default function Button({
           ? "btn turn-o"
           : "btn"
       }
+      disabled={turn}
       onClick={celValue === 0 && winner === 0 ? handleButtonClick : () => {}}
       aria-checked={celValue || winner ? true : false}>
       <span className={value !== 0 ? "" : "hidden"}>

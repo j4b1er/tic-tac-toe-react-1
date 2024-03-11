@@ -44,20 +44,27 @@ io.on("connection", (socket) => {
   //2nd player join an existing room
   socket.on("join_room", async (enemy) => {
     const roomObj = roomsArray.filter((obj) => obj.id === enemy.roomId);
-    console.log(roomObj.length);
+    // console.log(roomObj.length);
     if (roomObj.length) {
       const roomPlayers = await io.of("/").in(enemy.roomId).fetchSockets();
       if (roomPlayers.length < 2) {
         // console.log(`connected ${enemy.user} to room ${enemy.id}`);
         socket.data.user = enemy.user;
         socket.join(enemy.roomId);
-        // const playerTurn = randomNum(1, 3);
+        //Generate randomly whici player starts. If its 1 its the room master. If its 2 its the 2nd player turn
+        const playerTurn =
+          randomNum(1, 3) === 1 ? roomObj[0].master : enemy.user;
+        //send back to Player joining room
         socket.emit("room_joined", {
           id: enemy.roomId,
           master: roomObj[0].master,
+          playerStart: playerTurn,
           status: 1,
         });
-        socket.to(enemy.roomId).emit("enemy_joined", { enemy: enemy.user });
+        //send to Room Master
+        socket
+          .to(enemy.roomId)
+          .emit("enemy_joined", { enemy: enemy.user, playerStart: playerTurn });
       } else {
         //room full
         socket.emit("room_joined", { id: enemy.roomId, status: 3 });

@@ -24,6 +24,7 @@ export default function App() {
     JSON.parse(localStorage.getItem("username")) || ""
   );
   const [enemy, setEnemy] = useState("");
+  const [turnDisabled, setTurnDisabled] = useState(true);
 
   useEffect(() => {
     if (!room) {
@@ -35,6 +36,7 @@ export default function App() {
           case 1:
             setRoom(room.id);
             setEnemy(room.master);
+            setTurnDisabled(room.playerStart != userName);
             break;
           case 2:
             console.log("Room not found");
@@ -47,6 +49,7 @@ export default function App() {
     }
     socket.on("enemy_joined", (enemy) => {
       setEnemy(enemy.enemy);
+      setTurnDisabled(enemy.playerStart != userName);
       console.log(`${enemy.enemy} joined the room`);
     });
     socket.on("receive_board", (game) => {
@@ -84,6 +87,7 @@ export default function App() {
   }
 
   function playBoard(board) {
+    setTurnDisabled((turn) => !turn);
     socket.emit("play_board", { board, stage, winner, room, user: userName });
   }
 
@@ -110,6 +114,7 @@ export default function App() {
           roomNum={room}
           enemy={enemy}
           board={board}
+          turn={turnDisabled}
           setBoard={setBoard}
           stage={stage}
           setStage={setStage}
