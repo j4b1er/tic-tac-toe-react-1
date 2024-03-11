@@ -8,6 +8,8 @@ export default function Board({
   enemy,
   board,
   turn,
+  userName,
+  userTurn,
   stage,
   setStage,
   winner,
@@ -182,6 +184,8 @@ export default function Board({
               row={row}
               column={col}
               turn={turn}
+              userName={userName}
+              userTurn={userTurn}
               value={colValue}
               stage={stage}
               winner={winner}

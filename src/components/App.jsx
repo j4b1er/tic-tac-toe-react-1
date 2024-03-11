@@ -25,6 +25,7 @@ export default function App() {
   );
   const [enemy, setEnemy] = useState("");
   const [turnDisabled, setTurnDisabled] = useState(true);
+  const [userTurn, setUserTurn] = useState("");
 
   useEffect(() => {
     if (!room) {
@@ -36,7 +37,11 @@ export default function App() {
           case 1:
             setRoom(room.id);
             setEnemy(room.master);
-            setTurnDisabled(room.playerStart != userName);
+            setTurnDisabled(room.playerStart === userName ? false : true);
+            setUserTurn(room.playerStart);
+            console.log(room.playerStart);
+            console.log(userName);
+            console.log(room.playerStart === userName);
             break;
           case 2:
             console.log("Room not found");
@@ -49,13 +54,20 @@ export default function App() {
     }
     socket.on("enemy_joined", (enemy) => {
       setEnemy(enemy.enemy);
-      setTurnDisabled(enemy.playerStart != userName);
-      console.log(`${enemy.enemy} joined the room`);
+      setTurnDisabled(enemy.playerStart === userName ? false : true);
+      setUserTurn(enemy.playerStart);
+      console.log(enemy.playerStart);
+      console.log(userName);
+      console.log(enemy.playerStart === userName);
+      // console.log(`${enemy.enemy} joined the room`);
     });
     socket.on("receive_board", (game) => {
+      setTurnDisabled((value) => !value);
+      setUserTurn(game.user);
       setBoard(game.board);
       setStage(game.stage);
       setWinner(game.winner);
+      // console.log(`Board received from ${game.user}`);
     });
 
     socket.on("user_disconnected", (user) => {
@@ -87,7 +99,8 @@ export default function App() {
   }
 
   function playBoard(board) {
-    setTurnDisabled((turn) => !turn);
+    setTurnDisabled((value) => !value);
+    setUserTurn(enemy);
     socket.emit("play_board", { board, stage, winner, room, user: userName });
   }
 
@@ -115,6 +128,8 @@ export default function App() {
           enemy={enemy}
           board={board}
           turn={turnDisabled}
+          userName={userName}
+          userTurn={userTurn}
           setBoard={setBoard}
           stage={stage}
           setStage={setStage}

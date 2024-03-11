@@ -4,6 +4,8 @@ export default function Button({
   row,
   column,
   turn,
+  userName,
+  userTurn,
   value,
   stage,
   winner,
@@ -31,7 +33,7 @@ export default function Button({
           ? "btn turn-o"
           : "btn"
       }
-      disabled={turn}
+      disabled={userName === userTurn ? false : true}
       onClick={celValue === 0 && winner === 0 ? handleButtonClick : () => {}}
       aria-checked={celValue || winner ? true : false}>
       <span className={value !== 0 ? "" : "hidden"}>
