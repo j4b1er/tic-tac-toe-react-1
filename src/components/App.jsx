@@ -24,7 +24,6 @@ export default function App() {
     JSON.parse(localStorage.getItem("username")) || ""
   );
   const [enemy, setEnemy] = useState("");
-  const [turnDisabled, setTurnDisabled] = useState(true);
   const [userTurn, setUserTurn] = useState("");
 
   useEffect(() => {
@@ -37,7 +36,6 @@ export default function App() {
           case 1:
             setRoom(room.id);
             setEnemy(room.master);
-            setTurnDisabled(room.playerStart === userName ? false : true);
             setUserTurn(room.playerStart);
             console.log(room.playerStart);
             console.log(userName);
@@ -54,16 +52,11 @@ export default function App() {
     }
     socket.on("enemy_joined", (enemy) => {
       setEnemy(enemy.enemy);
-      setTurnDisabled(enemy.playerStart === userName ? false : true);
       setUserTurn(enemy.playerStart);
-      console.log(enemy.playerStart);
-      console.log(userName);
-      console.log(enemy.playerStart === userName);
       // console.log(`${enemy.enemy} joined the room`);
     });
     socket.on("receive_board", (game) => {
-      setTurnDisabled((value) => !value);
-      setUserTurn(game.user);
+      setUserTurn(userName);
       setBoard(game.board);
       setStage(game.stage);
       setWinner(game.winner);
@@ -99,7 +92,6 @@ export default function App() {
   }
 
   function playBoard(board) {
-    setTurnDisabled((value) => !value);
     setUserTurn(enemy);
     socket.emit("play_board", { board, stage, winner, room, user: userName });
   }
@@ -127,7 +119,6 @@ export default function App() {
           roomNum={room}
           enemy={enemy}
           board={board}
-          turn={turnDisabled}
           userName={userName}
           userTurn={userTurn}
           setBoard={setBoard}

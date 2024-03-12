@@ -3,7 +3,6 @@ import { useState } from "react";
 export default function Button({
   row,
   column,
-  turn,
   userName,
   userTurn,
   value,
