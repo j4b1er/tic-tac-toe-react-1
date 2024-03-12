@@ -9,6 +9,7 @@ export default function Board({
   board,
   userName,
   userTurn,
+  userSign,
   stage,
   setStage,
   winner,
@@ -172,7 +173,7 @@ export default function Board({
 
   return (
     <>
-      {`${roomNum}-${enemy}`}
+      {`${roomNum}-${enemy}-${userSign}`}
       <Turn stage={stage} />
       <Message winner={winner} stage={stage} resetGame={resetGame} />
       <div className="board">

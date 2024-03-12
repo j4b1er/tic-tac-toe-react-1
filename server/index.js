@@ -54,18 +54,22 @@ io.on("connection", (socket) => {
         //Generate randomly whici player starts. If its 1 its the room master. If its 2 its the 2nd player turn
         const playerTurn =
           randomNum(1, 3) === 1 ? roomObj[0].master : enemy.user;
-        console.log(playerTurn);
+        const masterSign = randomNum(1, 3) === 1 ? "X" : "O";
+        const enemySign = masterSign === "X" ? "O" : "X";
         //send back to Player joining room
         socket.emit("room_joined", {
           id: enemy.roomId,
           master: roomObj[0].master,
           playerStart: playerTurn,
+          enemySign,
           status: 1,
         });
         //send to Room Master
-        socket
-          .to(enemy.roomId)
-          .emit("enemy_joined", { enemy: enemy.user, playerStart: playerTurn });
+        socket.to(enemy.roomId).emit("enemy_joined", {
+          enemy: enemy.user,
+          playerStart: playerTurn,
+          masterSign,
+        });
       } else {
         //room full
         socket.emit("room_joined", { id: enemy.roomId, status: 3 });

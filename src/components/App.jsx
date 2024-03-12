@@ -25,6 +25,7 @@ export default function App() {
   );
   const [enemy, setEnemy] = useState("");
   const [userTurn, setUserTurn] = useState("");
+  const [userSign, setUserSign] = useState("");
 
   useEffect(() => {
     if (!room) {
@@ -37,9 +38,10 @@ export default function App() {
             setRoom(room.id);
             setEnemy(room.master);
             setUserTurn(room.playerStart);
-            console.log(room.playerStart);
-            console.log(userName);
-            console.log(room.playerStart === userName);
+            setUserSign(room.enemySign);
+            // console.log(room.playerStart);
+            // console.log(userName);
+            // console.log(room.playerStart === userName);
             break;
           case 2:
             console.log("Room not found");
@@ -53,6 +55,7 @@ export default function App() {
     socket.on("enemy_joined", (enemy) => {
       setEnemy(enemy.enemy);
       setUserTurn(enemy.playerStart);
+      setUserSign(enemy.masterSign);
       // console.log(`${enemy.enemy} joined the room`);
     });
     socket.on("receive_board", (game) => {
@@ -121,6 +124,7 @@ export default function App() {
           board={board}
           userName={userName}
           userTurn={userTurn}
+          userSign={userSign}
           setBoard={setBoard}
           stage={stage}
           setStage={setStage}
