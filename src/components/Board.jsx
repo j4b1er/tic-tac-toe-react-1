@@ -174,7 +174,12 @@ export default function Board({
   return (
     <>
       {`${roomNum}-${enemy}-${userSign}`}
-      <Turn stage={stage} />
+      <Turn
+        stage={stage}
+        userName={userName}
+        userTurn={userTurn}
+        userSign={userSign}
+      />
       <Message winner={winner} stage={stage} resetGame={resetGame} />
       <div className="board">
         {board.map((rowValue, row) =>
