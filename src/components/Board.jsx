@@ -179,6 +179,7 @@ export default function Board({
         userName={userName}
         userTurn={userTurn}
         userSign={userSign}
+        enemy={enemy}
       />
       <Message winner={winner} stage={stage} resetGame={resetGame} />
       <div className="board">

@@ -27,6 +27,8 @@
 
   & span {
     width: 216px;
+    overflow: hidden;
+    text-wrap: wrap;
     background-color: $color-primary-400;
     color: $color-secondary-200;
   }

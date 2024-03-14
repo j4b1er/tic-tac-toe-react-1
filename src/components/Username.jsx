@@ -13,6 +13,7 @@ export default function Username({ onCreateUsername }) {
       <input
         value={newUser}
         type="text"
+        maxLength={8}
         placeholder="Create a username..."
         onChange={(e) => setNewUser(e.target.value)}
       />

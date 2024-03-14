@@ -80,6 +80,8 @@ button {
     justify-content: center; }
   .turn span {
     width: 216px;
+    overflow: hidden;
+    text-wrap: wrap;
     background-color: #7f4f24;
     color: #a4ac86; }
   .turn div {
