@@ -59,6 +59,10 @@ button {
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5); }
     .btn[aria-checked="false"]:hover {
       background-color: #a4ac86; }
+    .btn[aria-checked="false"]:disabled {
+      cursor: default; }
+      .btn[aria-checked="false"]:disabled:hover {
+        background-color: #656d4a; }
 
 .turn {
   display: flex;
@@ -71,12 +75,12 @@ button {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif; }
   .turn-true {
     width: 100px;
-    font-size: 3rem;
-    background-color: #c2c5aa;
+    font-size: 4rem;
+    background-color: #a4ac86;
     color: #333d29; }
   .turn-false {
     width: 100px;
-    font-size: 3rem;
+    font-size: 4rem;
     background-color: #7f4f24;
     color: #a4ac86; }
   .turn > * {
@@ -94,6 +98,9 @@ button {
     font-size: 2rem;
     background-color: #7f4f24;
     color: #a4ac86; }
+  .turn > div {
+    width: 100px;
+    font-size: 4rem; }
 
 .messageForm {
   position: absolute;
@@ -285,3 +292,17 @@ button {
     .userName > button:hover {
       background-color: #a4ac86;
       color: #333d29; }
+
+.roomInfo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 2rem;
+  color: #a4ac86;
+  height: 6rem;
+  background-color: #7f4f24;
+  border-radius: 0.5rem;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+  margin-bottom: 1rem;
+  padding: 1rem; }

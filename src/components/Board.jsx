@@ -2,6 +2,7 @@ import { useState } from "react";
 import Button from "./Button";
 import Turn from "./Turn";
 import Message from "./Message";
+import Room from "./Room";
 
 export default function Board({
   roomNum,
@@ -173,7 +174,7 @@ export default function Board({
 
   return (
     <>
-      {`${roomNum}-${enemy}-${userSign}`}
+      <Room room={roomNum} />
       <Turn
         stage={stage}
         userName={userName}

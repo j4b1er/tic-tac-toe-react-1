@@ -12,14 +12,14 @@
 
   &-true {
     width: 100px;
-    font-size: 3rem;
-    background-color: $color-secondary-100;
+    font-size: 4rem;
+    background-color: $color-secondary-200;
     color: $color-secondary-500;
   }
 
   &-false {
     width: 100px;
-    font-size: 3rem;
+    font-size: 4rem;
     background-color: $color-primary-400;
     color: $color-secondary-200;
   }
@@ -45,9 +45,8 @@
     color: $color-secondary-200;
   }
 
-  // & div {
-  //   width: 100px;
-  //   font-size: 3rem;
-  //   color: $color-secondary-500;
-  // }
+  & > div {
+    width: 100px;
+    font-size: 4rem;
+  }
 }

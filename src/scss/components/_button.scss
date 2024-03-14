@@ -1,7 +1,6 @@
 .btn {
   border: none;
   background-color: $color-secondary-300;
-  // color: $color-secondary-100;
   color: $color-secondary-500;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
   border-radius: 0.5rem;
@@ -15,6 +14,14 @@
 
     &:hover {
       background-color: $color-secondary-200;
+    }
+
+    &:disabled {
+      cursor: default;
+
+      &:hover {
+        background-color: $color-secondary-300;
+      }
     }
   }
 }
