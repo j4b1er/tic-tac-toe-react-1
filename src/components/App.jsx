@@ -39,9 +39,6 @@ export default function App() {
             setEnemy(room.master);
             setUserTurn(room.playerStart);
             setUserSign(room.enemySign);
-            // console.log(room.playerStart);
-            // console.log(userName);
-            // console.log(room.playerStart === userName);
             break;
           case 2:
             console.log("Room not found");
@@ -63,6 +60,7 @@ export default function App() {
       setBoard(game.board);
       setStage(game.stage);
       setWinner(game.winner);
+      console.log(game.winner);
       // console.log(`Board received from ${game.user}`);
     });
 

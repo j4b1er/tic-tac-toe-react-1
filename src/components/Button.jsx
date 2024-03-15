@@ -26,15 +26,6 @@ export default function Button({
 
   return (
     <button
-      // className={
-      //   value === 3
-      //     ? "btn winner"
-      //     : value === 1
-      //     ? "btn turn-x"
-      //     : value === 2
-      //     ? "btn turn-o"
-      //     : "btn"
-      // }
       className={
         typeof value === "string" && value.includes("3")
           ? "btn winner"

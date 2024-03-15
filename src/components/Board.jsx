@@ -130,24 +130,24 @@ export default function Board({
 
     if (hLine) {
       finalBoard = newBoard.map((row, i) =>
-        i === hLine - 1 ? row.map((colValue) => `${colValue}3`) : row
+        i === hLine - 1 ? row.map((col) => `${col}3`) : row
       );
       setWinner(userName);
     } else if (vLine) {
       finalBoard = newBoard.map((row) =>
-        row.map((col, j) => (j === vLine - 1 ? 3 : col))
+        row.map((col, j) => (j === vLine - 1 ? `${col}3` : col))
       );
       setWinner(userName);
     } else if (bsLine) {
       finalBoard = newBoard.map((row, i) =>
-        row.map((col, j) => (i == j ? 3 : col))
+        row.map((col, j) => (i == j ? `${col}3` : col))
       );
       setWinner(userName);
     } else if (fsLine) {
       finalBoard = newBoard.map((row, i) =>
         row.map((col, j) =>
           (i === 1 && j === 1) || (i === 0 && j === 2) || (i === 2 && j === 0)
-            ? 3
+            ? `${col}3`
             : col
         )
       );
