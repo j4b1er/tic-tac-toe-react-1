@@ -132,17 +132,17 @@ export default function Board({
       finalBoard = newBoard.map((row, i) =>
         i === hLine - 1 ? row.map(() => 3) : row
       );
-      setWinner(value);
+      setWinner(userName);
     } else if (vLine) {
       finalBoard = newBoard.map((row) =>
         row.map((col, j) => (j === vLine - 1 ? 3 : col))
       );
-      setWinner(value);
+      setWinner(userName);
     } else if (bsLine) {
       finalBoard = newBoard.map((row, i) =>
         row.map((col, j) => (i == j ? 3 : col))
       );
-      setWinner(value);
+      setWinner(userName);
     } else if (fsLine) {
       finalBoard = newBoard.map((row, i) =>
         row.map((col, j) =>
@@ -151,7 +151,7 @@ export default function Board({
             : col
         )
       );
-      setWinner(value);
+      setWinner(userName);
     }
     setBoard(finalBoard);
     playBoard(finalBoard);
@@ -192,6 +192,7 @@ export default function Board({
               column={col}
               userName={userName}
               userTurn={userTurn}
+              userSign={userSign}
               value={colValue}
               stage={stage}
               winner={winner}
