@@ -36,7 +36,7 @@ export default function Button({
       //     : "btn"
       // }
       className={
-        value === 3
+        typeof value === "string" && value.includes("3")
           ? "btn winner"
           : value === "X"
           ? "btn turn-x"
@@ -49,7 +49,7 @@ export default function Button({
       aria-checked={value || winner ? true : false}>
       <span className={value !== 0 ? "" : "hidden"}>
         {/* {value === 1 ? "X" : value === 2 ? "O" : 0} */}
-        {value}
+        {typeof value === "string" ? value[0] : value}
       </span>
     </button>
   );

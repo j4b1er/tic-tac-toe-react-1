@@ -130,7 +130,7 @@ export default function Board({
 
     if (hLine) {
       finalBoard = newBoard.map((row, i) =>
-        i === hLine - 1 ? row.map(() => 3) : row
+        i === hLine - 1 ? row.map((colValue) => `${colValue}3`) : row
       );
       setWinner(userName);
     } else if (vLine) {
