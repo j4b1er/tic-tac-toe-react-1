@@ -19,10 +19,6 @@ export default function Board({
   setBoard,
   playBoard,
 }) {
-  // const [stage, setStage] = useState(0);
-  // const [winner, setWinner] = useState(0);
-  // const [board, setBoard] = useState(cleanBoard);
-
   function resetGame() {
     setStage(0);
     // setWinner(0);

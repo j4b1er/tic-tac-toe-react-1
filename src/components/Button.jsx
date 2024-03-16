@@ -12,14 +12,14 @@ export default function Button({
   setStage,
   onBoardUpdate,
 }) {
-  const [celValue, setCelValue] = useState(0);
+  // const [celValue, setCelValue] = useState(0);
 
   function handleButtonClick() {
     setStage(stage + 1);
-    let innerValue = stage % 2 === 0 ? "X" : "O";
-    let outterValue = stage % 2 === 0 ? 1 : 2;
+    // let innerValue = stage % 2 === 0 ? "X" : "O";
+    // let outterValue = stage % 2 === 0 ? 1 : 2;
     // setCelValue(innerValue);
-    setCelValue(userSign);
+    // setCelValue(userSign);
     // onBoardUpdate(outterValue, row, column);
     onBoardUpdate(userSign, row, column);
   }
@@ -36,7 +36,7 @@ export default function Button({
           : "btn"
       }
       disabled={userName === userTurn && !value ? false : true}
-      onClick={celValue === 0 && winner === "" ? handleButtonClick : () => {}}
+      onClick={value === 0 && winner === "" ? handleButtonClick : () => {}}
       aria-checked={value || winner != "" ? true : false}>
       <span className={value !== 0 ? "" : "hidden"}>
         {/* {value === 1 ? "X" : value === 2 ? "O" : 0} */}
