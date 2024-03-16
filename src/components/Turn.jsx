@@ -1,6 +1,6 @@
 export default function Turn({ stage, userName, userTurn, userSign, enemy }) {
   const msgTurn = isYourTurn() ? "Your Turn" : `${userTurn}'s Turn`;
-  const turn = stage % 2 === 0 ? "X" : "O";
+  // const turn = stage % 2 === 0 ? "X" : "O";
 
   function isYourTurn() {
     return userName === userTurn;

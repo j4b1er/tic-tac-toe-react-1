@@ -58,7 +58,7 @@ export default function App() {
     socket.on("receive_board", (game) => {
       setUserTurn(userName);
       setBoard(game.board);
-      setStage(game.stage);
+      setStage(game.stage + 1);
       setWinner(game.winner);
       // console.log(`Board received from ${game.user}`);
     });

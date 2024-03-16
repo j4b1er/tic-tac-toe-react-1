@@ -14,8 +14,6 @@ export default function Board({
   stage,
   setStage,
   winner,
-  updateWinner,
-  setWinner,
   setBoard,
   playBoard,
 }) {
@@ -111,6 +109,13 @@ export default function Board({
     return result;
   }
 
+  function checkTie(newBoard) {
+    return newBoard.some((row) => row.includes(0));
+    // const hasZeros = true;
+    // newBoard.forEach((row) => row.forEach((col) => if(col === 0) return true));
+    // return hasZeros;
+  }
+
   /**
    *
    * @param {Array} newBoard Updated array
@@ -118,13 +123,12 @@ export default function Board({
    * @param {Number} row The row where the click happened
    * @param {Number} value The number repesenting the user play 1 = X and 2 = O
    */
-  function checkBoard(newBoard, column, row, value) {
+  function checkBoard(newBoard, column, row) {
     let finalBoard = newBoard;
     const hLine = checkHorizontalLines(newBoard, row);
     const vLine = checkVerticalLines(newBoard, column);
     const bsLine = checkBackwardsSlash(newBoard);
     const fsLine = checkForwardSlash(newBoard);
-
     let userWinner = "";
 
     if (hLine) {
@@ -132,19 +136,16 @@ export default function Board({
         i === hLine - 1 ? row.map((col) => `${col}3`) : row
       );
       userWinner = userName;
-      // updateWinner(userName);
     } else if (vLine) {
       finalBoard = newBoard.map((row) =>
         row.map((col, j) => (j === vLine - 1 ? `${col}3` : col))
       );
       userWinner = userName;
-      // updateWinner(userName);
     } else if (bsLine) {
       finalBoard = newBoard.map((row, i) =>
         row.map((col, j) => (i == j ? `${col}3` : col))
       );
       userWinner = userName;
-      // updateWinner(userName);
     } else if (fsLine) {
       finalBoard = newBoard.map((row, i) =>
         row.map((col, j) =>
@@ -154,7 +155,8 @@ export default function Board({
         )
       );
       userWinner = userName;
-      // updateWinner(userName);
+    } else if (!checkTie(newBoard)) {
+      userWinner = "tie";
     }
     setBoard(finalBoard);
     // setWinner(userWinner);
