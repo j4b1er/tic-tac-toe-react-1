@@ -14,6 +14,7 @@ export default function Board({
   stage,
   setStage,
   winner,
+  updateWinner,
   setWinner,
   setBoard,
   playBoard,
@@ -24,7 +25,7 @@ export default function Board({
 
   function resetGame() {
     setStage(0);
-    setWinner(0);
+    // setWinner(0);
     // setBoard(cleanBoard);
     // setGameID(randomGameId);
   }
@@ -128,21 +129,26 @@ export default function Board({
     const bsLine = checkBackwardsSlash(newBoard);
     const fsLine = checkForwardSlash(newBoard);
 
+    let userWinner = "";
+
     if (hLine) {
       finalBoard = newBoard.map((row, i) =>
         i === hLine - 1 ? row.map((col) => `${col}3`) : row
       );
-      setWinner(userName);
+      userWinner = userName;
+      // updateWinner(userName);
     } else if (vLine) {
       finalBoard = newBoard.map((row) =>
         row.map((col, j) => (j === vLine - 1 ? `${col}3` : col))
       );
-      setWinner(userName);
+      userWinner = userName;
+      // updateWinner(userName);
     } else if (bsLine) {
       finalBoard = newBoard.map((row, i) =>
         row.map((col, j) => (i == j ? `${col}3` : col))
       );
-      setWinner(userName);
+      userWinner = userName;
+      // updateWinner(userName);
     } else if (fsLine) {
       finalBoard = newBoard.map((row, i) =>
         row.map((col, j) =>
@@ -151,10 +157,12 @@ export default function Board({
             : col
         )
       );
-      setWinner(userName);
+      userWinner = userName;
+      // updateWinner(userName);
     }
     setBoard(finalBoard);
-    playBoard(finalBoard);
+    // setWinner(userWinner);
+    playBoard(finalBoard, userWinner);
   }
 
   /**

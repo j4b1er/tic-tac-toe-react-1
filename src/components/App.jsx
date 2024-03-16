@@ -19,7 +19,7 @@ export default function App() {
   const [room, setRoom] = useState(null);
   const [board, setBoard] = useState(cleanBoard);
   const [stage, setStage] = useState(0);
-  const [winner, setWinner] = useState(0);
+  const [winner, setWinner] = useState("");
   const [userName, setUserName] = useState(
     JSON.parse(localStorage.getItem("username")) || ""
   );
@@ -60,7 +60,6 @@ export default function App() {
       setBoard(game.board);
       setStage(game.stage);
       setWinner(game.winner);
-      console.log(game.winner);
       // console.log(`Board received from ${game.user}`);
     });
 
@@ -92,9 +91,20 @@ export default function App() {
       socket.emit("join_room", { roomId: roomEntered, user: userName });
   }
 
-  function playBoard(board) {
+  function playBoard(board, userWinner) {
     setUserTurn(enemy);
-    socket.emit("play_board", { board, stage, winner, room, user: userName });
+    setWinner(userWinner);
+    socket.emit("play_board", {
+      board,
+      stage,
+      winner: userWinner,
+      room,
+      user: userName,
+    });
+  }
+
+  function updateWinner(userWinner) {
+    setWinner(userWinner);
   }
 
   return (
@@ -127,6 +137,7 @@ export default function App() {
           stage={stage}
           setStage={setStage}
           winner={winner}
+          updateWinner={updateWinner}
           setWinner={setWinner}
           playBoard={playBoard}
         />
