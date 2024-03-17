@@ -1,20 +1,24 @@
 .messageForm {
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.5);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: $color-secondary-500;
   min-height: 100vh;
   width: 100%;
   z-index: 900;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .message {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 
   display: flex;
   flex-flow: column nowrap;
-  gap: 0.5rem;
+  gap: 2rem;
   align-items: center;
   justify-content: center;
 
@@ -23,12 +27,33 @@
   color: $color-secondary-500;
 
   min-width: 300px;
-  border-radius: 0.5rem;
-  padding: 2rem;
-  background-color: lightgreen;
+
+  // &__winner {
+  //   background-color: lightgreen;
+  // }
+
+  // &__loser {
+  //   background-color: $color-danger;
+
+  //   & > p {
+  //     color: $color-primary-100;
+  //   }
+  // }
+
+  // &__tie {
+  //   background-color: $color-warning;
+  // }
 
   & .winner-msg {
-    font-size: 6rem;
+    color: $color-success;
+  }
+
+  & .loser-msg {
+    color: $color-danger;
+  }
+
+  & .tie-msg {
+    color: $color-warning;
   }
 
   & button {

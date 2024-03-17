@@ -188,7 +188,9 @@ export default function Board({
         userSign={userSign}
         enemy={enemy}
       />
-      <Message winner={winner} stage={stage} resetGame={resetGame} />
+      {winner && (
+        <Message winner={winner} userName={userName} resetGame={resetGame} />
+      )}
       <div className="board">
         {board.map((rowValue, row) =>
           rowValue.map((colValue, col) => (
