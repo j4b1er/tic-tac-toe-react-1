@@ -14,14 +14,8 @@ export default function Board({
   winner,
   setBoard,
   playBoard,
+  resetGame,
 }) {
-  function resetGame() {
-    // setStage(0);
-    // setWinner(0);
-    // setBoard(cleanBoard);
-    // setGameID(randomGameId);
-  }
-
   /**
    *
    * @param {Array} arr one dimentional array to check if values are the same
@@ -157,7 +151,6 @@ export default function Board({
       userWinner = "tie";
     }
     setBoard(finalBoard);
-    // setWinner(userWinner);
     playBoard(finalBoard, userWinner);
   }
 

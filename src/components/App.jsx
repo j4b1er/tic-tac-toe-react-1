@@ -57,7 +57,6 @@ export default function App() {
     socket.on("receive_board", (game) => {
       setUserTurn(userName);
       setBoard(game.board);
-      // setStage(game.stage + 1);
       setWinner(game.winner);
       // console.log(`Board received from ${game.user}`);
     });
@@ -105,6 +104,12 @@ export default function App() {
     setWinner(userWinner);
   }
 
+  function resetGame() {
+    setBoard(cleanBoard);
+    setEnemy("");
+    setWinner("");
+  }
+
   return (
     <div className="app">
       {room === null ? (
@@ -131,11 +136,11 @@ export default function App() {
           userName={userName}
           userTurn={userTurn}
           userSign={userSign}
-          setBoard={setBoard}
           winner={winner}
+          setBoard={setBoard}
           updateWinner={updateWinner}
-          setWinner={setWinner}
           playBoard={playBoard}
+          resetGame={resetGame}
         />
       )}
     </div>
