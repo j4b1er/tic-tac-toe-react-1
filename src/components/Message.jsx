@@ -1,10 +1,10 @@
 export default function Message({ winner, userName, resetGame }) {
   const resultMsg =
     winner === "tie"
-      ? "It is a tie."
+      ? "It's a tie."
       : userName === winner
       ? "You Won!"
-      : "You Lost";
+      : "You Lost.";
   const msgClass =
     winner === "tie"
       ? "tie-msg"

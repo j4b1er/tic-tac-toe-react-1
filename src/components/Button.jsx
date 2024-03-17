@@ -7,15 +7,12 @@ export default function Button({
   userTurn,
   userSign,
   value,
-  stage,
   winner,
-  setStage,
   onBoardUpdate,
 }) {
   // const [celValue, setCelValue] = useState(0);
 
   function handleButtonClick() {
-    setStage(stage + 1);
     // let innerValue = stage % 2 === 0 ? "X" : "O";
     // let outterValue = stage % 2 === 0 ? 1 : 2;
     // setCelValue(innerValue);

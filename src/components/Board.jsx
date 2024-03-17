@@ -11,14 +11,12 @@ export default function Board({
   userName,
   userTurn,
   userSign,
-  stage,
-  setStage,
   winner,
   setBoard,
   playBoard,
 }) {
   function resetGame() {
-    setStage(0);
+    // setStage(0);
     // setWinner(0);
     // setBoard(cleanBoard);
     // setGameID(randomGameId);
@@ -182,7 +180,6 @@ export default function Board({
     <>
       <Room room={roomNum} />
       <Turn
-        stage={stage}
         userName={userName}
         userTurn={userTurn}
         userSign={userSign}
@@ -202,9 +199,7 @@ export default function Board({
               userTurn={userTurn}
               userSign={userSign}
               value={colValue}
-              stage={stage}
               winner={winner}
-              setStage={setStage}
               onBoardUpdate={handleBoardUpdate}
             />
           ))
