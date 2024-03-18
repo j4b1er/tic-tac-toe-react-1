@@ -83,6 +83,10 @@ button {
     font-size: 4rem;
     background-color: #7f4f24;
     color: #a4ac86; }
+    .turn-false svg {
+      height: 3rem;
+      fill: #a4ac86;
+      animation: loadingsvg 1.5s infinite; }
   .turn > * {
     height: 6rem;
     padding: 1rem;
@@ -101,6 +105,12 @@ button {
   .turn > div {
     width: 100px;
     font-size: 4rem; }
+
+@keyframes loadingsvg {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
 
 .messageForm {
   position: absolute;
