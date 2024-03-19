@@ -15,6 +15,7 @@ export default function Board({
   setBoard,
   playBoard,
   resetGame,
+  quitGame,
 }) {
   /**
    *
@@ -180,7 +181,12 @@ export default function Board({
         gameStart={gameStart}
       />
       {winner && (
-        <Message winner={winner} userName={userName} resetGame={resetGame} />
+        <Message
+          winner={winner}
+          userName={userName}
+          resetGame={resetGame}
+          quitGame={quitGame}
+        />
       )}
       <div className="board">
         {board.map((rowValue, row) =>

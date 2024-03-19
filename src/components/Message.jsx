@@ -1,4 +1,4 @@
-export default function Message({ winner, userName, resetGame }) {
+export default function Message({ winner, userName, resetGame, quitGame }) {
   const resultMsg =
     winner === "tie"
       ? "It's a tie."
@@ -14,14 +14,26 @@ export default function Message({ winner, userName, resetGame }) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    console.log(e.target.children);
+    // resetGame();
+  }
+
+  function handleRestart(e) {
+    e.preventDefault();
     resetGame();
   }
 
+  function handleQuit(e) {
+    e.preventDefault();
+    quitGame();
+  }
+
   return (
-    <form className="messageForm" onSubmit={handleSubmit}>
+    <form className="messageForm">
       <div className="message">
         <p className={msgClass}>{resultMsg}</p>
-        <button>Restart</button>
+        <button onClick={handleRestart}>Restart</button>
+        <button onClick={handleQuit}>Quit</button>
       </div>
     </form>
   );

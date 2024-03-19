@@ -118,6 +118,16 @@ export default function App() {
     socket.emit("game_reset", room);
   }
 
+  function quitGame() {
+    setRoom(null);
+    setBoard(cleanBoard);
+    setWinner("");
+    setEnemy("");
+    setUserTurn("");
+    setUserSign("");
+    setGameStart(false);
+  }
+
   return (
     <div className="app">
       {room === null ? (
@@ -150,6 +160,7 @@ export default function App() {
           updateWinner={updateWinner}
           playBoard={playBoard}
           resetGame={resetGame}
+          quitGame={quitGame}
         />
       )}
     </div>
