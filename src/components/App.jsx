@@ -61,7 +61,6 @@ export default function App() {
       setBoard(game.board);
       setWinner(game.winner);
       setGameStart(game.winner === "");
-      // if (!gameStart) setGameStart(true);
       // console.log(`Board received from ${game.user}`);
     });
     socket.on("player_reset", () => {
@@ -98,7 +97,6 @@ export default function App() {
   }
 
   function playBoard(board, userWinner) {
-    // if (!gameStart) setGameStart(true);
     setUserTurn(enemy);
     setWinner(userWinner);
     if (userWinner !== "") setGameStart(false);
@@ -115,9 +113,7 @@ export default function App() {
   }
 
   function resetGame() {
-    //Will reset board, winner and gameStart
     setBoard(cleanBoard);
-    // setGameStart(true);
     setWinner("");
     socket.emit("game_reset", room);
   }
