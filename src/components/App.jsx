@@ -101,7 +101,7 @@ export default function App() {
     // if (!gameStart) setGameStart(true);
     setUserTurn(enemy);
     setWinner(userWinner);
-    // if (userWinner != "") setGameStart(false);
+    if (userWinner !== "") setGameStart(false);
     socket.emit("play_board", {
       board,
       winner: userWinner,
