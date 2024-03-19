@@ -1,4 +1,10 @@
-export default function Turn({ userName, userTurn, userSign, enemy }) {
+export default function Turn({
+  userName,
+  userTurn,
+  userSign,
+  enemy,
+  gameStart,
+}) {
   const msgTurn = isYourTurn() ? "Your Turn" : `${userTurn}'s Turn`;
 
   function isYourTurn() {
@@ -7,7 +13,13 @@ export default function Turn({ userName, userTurn, userSign, enemy }) {
 
   return (
     <div className="turn">
-      <span>{enemy ? msgTurn : `Waiting for opponent...`}</span>
+      <span>
+        {enemy
+          ? gameStart
+            ? msgTurn
+            : `Waiting for ${enemy}`
+          : `Waiting for opponent...`}
+      </span>
       <div className={`turn-${isYourTurn()}`}>
         {enemy ? (
           userSign

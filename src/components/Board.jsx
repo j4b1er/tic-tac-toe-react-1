@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Button from "./Button";
 import Turn from "./Turn";
 import Message from "./Message";
@@ -12,6 +11,7 @@ export default function Board({
   userTurn,
   userSign,
   winner,
+  gameStart,
   setBoard,
   playBoard,
   resetGame,
@@ -177,6 +177,7 @@ export default function Board({
         userTurn={userTurn}
         userSign={userSign}
         enemy={enemy}
+        gameStart={gameStart}
       />
       {winner && (
         <Message winner={winner} userName={userName} resetGame={resetGame} />
@@ -193,6 +194,7 @@ export default function Board({
               userSign={userSign}
               value={colValue}
               winner={winner}
+              gameStart={gameStart}
               onBoardUpdate={handleBoardUpdate}
             />
           ))

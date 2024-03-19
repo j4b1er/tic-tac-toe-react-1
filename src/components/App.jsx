@@ -25,6 +25,7 @@ export default function App() {
   const [enemy, setEnemy] = useState("");
   const [userTurn, setUserTurn] = useState("");
   const [userSign, setUserSign] = useState("");
+  const [gameStart, setGameStart] = useState(false);
 
   useEffect(() => {
     if (!room) {
@@ -49,6 +50,7 @@ export default function App() {
       });
     }
     socket.on("enemy_joined", (enemy) => {
+      if (!gameStart) setGameStart(true);
       setEnemy(enemy.enemy);
       setUserTurn(enemy.playerStart);
       setUserSign(enemy.masterSign);
@@ -58,7 +60,12 @@ export default function App() {
       setUserTurn(userName);
       setBoard(game.board);
       setWinner(game.winner);
+      setGameStart(game.winner === "");
+      // if (!gameStart) setGameStart(true);
       // console.log(`Board received from ${game.user}`);
+    });
+    socket.on("player_reset", () => {
+      setGameStart(true);
     });
 
     socket.on("user_disconnected", (user) => {
@@ -87,11 +94,14 @@ export default function App() {
   function joinRoom(roomEntered) {
     if (!room)
       socket.emit("join_room", { roomId: roomEntered, user: userName });
+    if (!gameStart) setGameStart(true);
   }
 
   function playBoard(board, userWinner) {
+    // if (!gameStart) setGameStart(true);
     setUserTurn(enemy);
     setWinner(userWinner);
+    // if (userWinner != "") setGameStart(false);
     socket.emit("play_board", {
       board,
       winner: userWinner,
@@ -105,9 +115,11 @@ export default function App() {
   }
 
   function resetGame() {
+    //Will reset board, winner and gameStart
     setBoard(cleanBoard);
-    setEnemy("");
+    // setGameStart(true);
     setWinner("");
+    socket.emit("game_reset", room);
   }
 
   return (
@@ -137,6 +149,7 @@ export default function App() {
           userTurn={userTurn}
           userSign={userSign}
           winner={winner}
+          gameStart={gameStart}
           setBoard={setBoard}
           updateWinner={updateWinner}
           playBoard={playBoard}

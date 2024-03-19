@@ -85,6 +85,10 @@ io.on("connection", (socket) => {
     socket.to(game.room).emit("receive_board", game);
   });
 
+  socket.on("game_reset", (roomNumber) => {
+    socket.to(roomNumber).emit("player_reset");
+  });
+
   socket.on("disconnecting", () => {
     let roomsArray = Array.from(socket.rooms);
     const userDisc = socket.data.user;

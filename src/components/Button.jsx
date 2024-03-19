@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 export default function Button({
   row,
   column,
@@ -8,6 +6,7 @@ export default function Button({
   userSign,
   value,
   winner,
+  gameStart,
   onBoardUpdate,
 }) {
   function handleButtonClick() {
@@ -25,8 +24,10 @@ export default function Button({
           ? "btn turn-o"
           : "btn"
       }
-      disabled={userName === userTurn && !value ? false : true}
-      onClick={value === 0 && winner === "" ? handleButtonClick : () => {}}
+      disabled={
+        gameStart ? (userName === userTurn && !value ? false : true) : true
+      }
+      onClick={handleButtonClick}
       aria-checked={value || winner != "" ? true : false}>
       <span className={value !== 0 ? "" : "hidden"}>
         {typeof value === "string" ? value[0] : value}
