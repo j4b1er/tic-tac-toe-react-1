@@ -90,10 +90,14 @@ io.on("connection", (socket) => {
   });
 
   //Quitting when pressing leave room button
-  socket.on("quit_game", (gameInfo) => {
+  socket.on("quit_game", async (gameInfo) => {
     //check if the quitting user is the last one then close the room and remove the array
     socket.leave(gameInfo.room);
     socket.to(gameInfo.room).emit("player_quit", gameInfo);
+    const roomPlayers = await io.of("/").in(gameInfo.room).fetchSockets();
+    if (roomPlayers.length === 0) {
+      roomsArray = roomsArray.filter((room) => room.id !== gameInfo.room);
+    }
   });
 
   //Quitting when frefreshing or closing browser
