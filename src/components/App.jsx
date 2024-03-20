@@ -64,7 +64,16 @@ export default function App() {
       // console.log(`Board received from ${game.user}`);
     });
     socket.on("player_reset", () => {
+      setBoard(cleanBoard);
       setGameStart(true);
+    });
+    socket.on("player_quit", (gameInfo) => {
+      setBoard(cleanBoard);
+      setEnemy("");
+      setUserSign("");
+      setUserTurn("");
+      setGameStart(false);
+      // console.log(`${gameInfo.userLeaving} Left room ${gameInfo.room}`);
     });
 
     socket.on("user_disconnected", (user) => {
@@ -126,6 +135,7 @@ export default function App() {
     setUserTurn("");
     setUserSign("");
     setGameStart(false);
+    socket.emit("quit_game", { room, userLeaving: userName });
   }
 
   return (

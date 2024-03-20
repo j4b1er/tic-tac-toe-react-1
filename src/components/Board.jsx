@@ -2,6 +2,7 @@ import Button from "./Button";
 import Turn from "./Turn";
 import Message from "./Message";
 import Room from "./Room";
+import GameOptions from "./GameOptions";
 
 export default function Board({
   roomNum,
@@ -206,6 +207,7 @@ export default function Board({
           ))
         )}
       </div>
+      <GameOptions quitGame={quitGame} />
     </>
   );
 }

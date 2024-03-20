@@ -89,6 +89,12 @@ io.on("connection", (socket) => {
     socket.to(roomNumber).emit("player_reset");
   });
 
+  socket.on("quit_game", (gameInfo) => {
+    //check if the quitting user is the last one then close the room and remove the array
+    socket.leave(gameInfo.room);
+    socket.to(gameInfo.room).emit("player_quit", gameInfo);
+  });
+
   socket.on("disconnecting", () => {
     let roomsArray = Array.from(socket.rooms);
     const userDisc = socket.data.user;
