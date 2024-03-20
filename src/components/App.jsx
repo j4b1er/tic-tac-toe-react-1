@@ -82,7 +82,7 @@ export default function App() {
       setUserSign("");
       setUserTurn("");
       setGameStart(false);
-      console.log(`${user} disconnected`);
+      // console.log(`${user} disconnected`);
     });
   }, [socket]);
 

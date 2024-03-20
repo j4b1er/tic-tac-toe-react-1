@@ -344,8 +344,8 @@ button {
   .gameOptions___btn {
     cursor: pointer;
     border: none;
-    background-color: #fe5f55;
+    background-color: #c2c5aa;
     color: #582f0e;
     transition: all 0.2s ease-in-out; }
     .gameOptions___btn:hover {
-      background-color: rgba(254, 95, 85, 0.6); }
+      background-color: #fe5f55; }

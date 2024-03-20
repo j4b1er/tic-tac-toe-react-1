@@ -30,14 +30,16 @@
   &___btn {
     cursor: pointer;
     border: none;
-    background-color: $color-danger;
+    // background-color: $color-danger;
+    background-color: $color-secondary-100;
 
     color: $color-primary-500;
+    // color: $color-danger;
 
     transition: all 0.2s ease-in-out;
 
     &:hover {
-      background-color: rgba($color-danger, 0.6);
+      background-color: $color-danger;
     }
   }
 
