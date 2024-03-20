@@ -77,6 +77,11 @@ export default function App() {
     });
 
     socket.on("user_disconnected", (user) => {
+      setBoard(cleanBoard);
+      setEnemy("");
+      setUserSign("");
+      setUserTurn("");
+      setGameStart(false);
       console.log(`${user} disconnected`);
     });
   }, [socket]);
