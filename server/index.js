@@ -35,6 +35,7 @@ io.on("connection", (socket) => {
   socket.on("set_room", (master) => {
     const roomID = randomNum(1, 1000000, true);
     socket.data.user = master.user;
+    socket.data.room = roomID;
     roomsArray.push({ id: roomID, master: master.user });
     socket.join(roomID);
     // console.log(`${socket.data.user} created Room ${roomID}`);
@@ -50,6 +51,7 @@ io.on("connection", (socket) => {
       if (roomPlayers.length < 2) {
         // console.log(`connected ${enemy.user} to room ${enemy.id}`);
         socket.data.user = enemy.user;
+        socket.data.room = enemy.roomId;
         socket.join(enemy.roomId);
         //Generate randomly whici player starts. If its 1 its the room master. If its 2 its the 2nd player turn
         const playerTurn =
@@ -91,7 +93,6 @@ io.on("connection", (socket) => {
 
   //Quitting when pressing leave room button
   socket.on("quit_game", async (gameInfo) => {
-    //check if the quitting user is the last one then close the room and remove the array
     socket.leave(gameInfo.room);
     socket.to(gameInfo.room).emit("player_quit", gameInfo);
     const roomPlayers = await io.of("/").in(gameInfo.room).fetchSockets();
@@ -101,14 +102,19 @@ io.on("connection", (socket) => {
   });
 
   //Quitting when frefreshing or closing browser
-  socket.on("disconnecting", () => {
-    let roomsArray = Array.from(socket.rooms);
+  socket.on("disconnecting", async () => {
+    //get info about socket and room
     const userDisc = socket.data.user;
-    if (roomsArray.length >= 2) {
-      socket.to(roomsArray[1]).emit("user_disconnected", userDisc);
+    const userRoom = socket.data.room;
+    if (userRoom) {
+      socket.to(userRoom).emit("user_disconnected", userDisc);
       // console.log(
       //   `${socket.data.user} disconnected from room ${roomsArray[1]}`
       // );
+    }
+    const roomPlayers = await io.of("/").in(userRoom).fetchSockets();
+    if (roomPlayers.length === 1) {
+      roomsArray = roomsArray.filter((room) => room.id !== userRoom);
     }
   });
 });
