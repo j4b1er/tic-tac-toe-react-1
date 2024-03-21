@@ -110,7 +110,7 @@ export default function App() {
     if (!gameStart) setGameStart(true);
   }
 
-  function playBoard(board, userWinner) {
+  function playBoard(board, userWinner = "") {
     setUserTurn(enemy);
     setWinner(userWinner);
     if (userWinner !== "") setGameStart(false);

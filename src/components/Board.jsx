@@ -207,7 +207,14 @@ export default function Board({
           ))
         )}
       </div>
-      <GameOptions quitGame={quitGame} />
+      <GameOptions
+        userName={userName}
+        userTurn={userTurn}
+        gameStart={gameStart}
+        currentBoard={board}
+        quitGame={quitGame}
+        playBoard={playBoard}
+      />
     </>
   );
 }
