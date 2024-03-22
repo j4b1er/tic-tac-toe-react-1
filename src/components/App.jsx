@@ -26,11 +26,13 @@ export default function App() {
   const [userTurn, setUserTurn] = useState("");
   const [userSign, setUserSign] = useState("");
   const [gameStart, setGameStart] = useState(false);
+  const [playersReady, setPlayersReady] = useState(0);
 
   useEffect(() => {
     if (!room) {
       socket.on("room_created", (room) => {
         setRoom(room);
+        setPlayersReady(1);
       });
       socket.on("room_joined", (room) => {
         switch (room.status) {
@@ -39,6 +41,7 @@ export default function App() {
             setEnemy(room.master);
             setUserTurn(room.playerStart);
             setUserSign(room.enemySign);
+            setPlayersReady(2);
             break;
           case 2:
             console.log("Room not found");
@@ -54,6 +57,7 @@ export default function App() {
       setEnemy(enemy.enemy);
       setUserTurn(enemy.playerStart);
       setUserSign(enemy.masterSign);
+      setPlayersReady(2);
       // console.log(`${enemy.enemy} joined the room`);
     });
     socket.on("receive_board", (game) => {
@@ -61,6 +65,7 @@ export default function App() {
       setBoard(game.board);
       setWinner(game.winner);
       setGameStart(game.winner === "");
+      setPlayersReady((value) => (game.winner === "" ? value : 0));
       // console.log(`Board received from ${game.user}`);
     });
     socket.on("player_reset", () => {
@@ -73,6 +78,7 @@ export default function App() {
       setUserSign("");
       setUserTurn("");
       setGameStart(false);
+      setPlayersReady(1);
       // console.log(`${gameInfo.userLeaving} Left room ${gameInfo.room}`);
     });
 
@@ -82,6 +88,7 @@ export default function App() {
       setUserSign("");
       setUserTurn("");
       setGameStart(false);
+      setPlayersReady(1);
       // console.log(`${user} disconnected`);
     });
   }, [socket]);
@@ -140,6 +147,7 @@ export default function App() {
     setUserTurn("");
     setUserSign("");
     setGameStart(false);
+    setPlayersReady(0);
     socket.emit("quit_game", { room, userLeaving: userName });
   }
 
