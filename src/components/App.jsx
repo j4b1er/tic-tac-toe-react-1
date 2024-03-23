@@ -53,7 +53,7 @@ export default function App() {
       });
     }
     socket.on("enemy_joined", (enemy) => {
-      if (!gameStart) setGameStart(true);
+      // if (!gameStart) setGameStart(true);
       setEnemy(enemy.enemy);
       setUserTurn(enemy.playerStart);
       setUserSign(enemy.masterSign);
@@ -64,20 +64,21 @@ export default function App() {
       setUserTurn(userName);
       setBoard(game.board);
       setWinner(game.winner);
-      setGameStart(game.winner === "");
+      // setGameStart(game.winner === "");
       setPlayersReady((value) => (game.winner === "" ? value : 0));
       // console.log(`Board received from ${game.user}`);
     });
     socket.on("player_reset", () => {
       setBoard(cleanBoard);
-      setGameStart(true);
+      // setGameStart(true);
+      setPlayersReady((value) => value + 1);
     });
     socket.on("player_quit", (gameInfo) => {
       setBoard(cleanBoard);
       setEnemy("");
       setUserSign("");
       setUserTurn("");
-      setGameStart(false);
+      // setGameStart(false);
       setPlayersReady(1);
       // console.log(`${gameInfo.userLeaving} Left room ${gameInfo.room}`);
     });
@@ -87,7 +88,7 @@ export default function App() {
       setEnemy("");
       setUserSign("");
       setUserTurn("");
-      setGameStart(false);
+      // setGameStart(false);
       setPlayersReady(1);
       // console.log(`${user} disconnected`);
     });
@@ -114,13 +115,14 @@ export default function App() {
   function joinRoom(roomEntered) {
     if (!room)
       socket.emit("join_room", { roomId: roomEntered, user: userName });
-    if (!gameStart) setGameStart(true);
+    // if (!gameStart) setGameStart(true);
   }
 
   function playBoard(board, userWinner = "") {
     setUserTurn(enemy);
     setWinner(userWinner);
-    if (userWinner !== "") setGameStart(false);
+    // if (userWinner !== "") setGameStart(false);
+    if (userWinner !== "") setPlayersReady(0);
     socket.emit("play_board", {
       board,
       winner: userWinner,
@@ -129,13 +131,11 @@ export default function App() {
     });
   }
 
-  function updateWinner(userWinner) {
-    setWinner(userWinner);
-  }
-
   function resetGame() {
     setBoard(cleanBoard);
     setWinner("");
+    // setPlayersReady((value) => (value === 0 ? 1 : 2));
+    setPlayersReady((value) => value + 1);
     socket.emit("game_reset", room);
   }
 
@@ -146,7 +146,7 @@ export default function App() {
     setEnemy("");
     setUserTurn("");
     setUserSign("");
-    setGameStart(false);
+    // setGameStart(false);
     setPlayersReady(0);
     socket.emit("quit_game", { room, userLeaving: userName });
   }
@@ -178,9 +178,8 @@ export default function App() {
           userTurn={userTurn}
           userSign={userSign}
           winner={winner}
-          gameStart={gameStart}
+          playersReady={playersReady}
           setBoard={setBoard}
-          updateWinner={updateWinner}
           playBoard={playBoard}
           resetGame={resetGame}
           quitGame={quitGame}

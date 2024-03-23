@@ -12,12 +12,6 @@ export default function Message({ winner, userName, resetGame, quitGame }) {
       ? "winner-msg"
       : "loser-msg";
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    console.log(e.target.children);
-    // resetGame();
-  }
-
   function handleRestart(e) {
     e.preventDefault();
     resetGame();

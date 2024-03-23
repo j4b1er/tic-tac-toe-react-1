@@ -3,7 +3,7 @@ export default function Turn({
   userTurn,
   userSign,
   enemy,
-  gameStart,
+  playersReady,
 }) {
   const msgTurn = isYourTurn() ? "Your Turn" : `${userTurn}'s Turn`;
 
@@ -15,14 +15,15 @@ export default function Turn({
     <div className="turn">
       <span>
         {enemy
-          ? gameStart
+          ? playersReady >= 2
             ? msgTurn
             : `Waiting for ${enemy}`
           : `Waiting for opponent...`}
       </span>
-      <div className={gameStart ? `turn-${isYourTurn()}` : "turn-false"}>
+      <div
+        className={playersReady === 2 ? `turn-${isYourTurn()}` : "turn-false"}>
         {enemy ? (
-          gameStart ? (
+          playersReady === 2 ? (
             userSign
           ) : (
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">

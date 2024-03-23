@@ -12,7 +12,7 @@ export default function Board({
   userTurn,
   userSign,
   winner,
-  gameStart,
+  playersReady,
   setBoard,
   playBoard,
   resetGame,
@@ -179,7 +179,7 @@ export default function Board({
         userTurn={userTurn}
         userSign={userSign}
         enemy={enemy}
-        gameStart={gameStart}
+        playersReady={playersReady}
       />
       {winner && (
         <Message
@@ -201,7 +201,7 @@ export default function Board({
               userSign={userSign}
               value={colValue}
               winner={winner}
-              gameStart={gameStart}
+              playersReady={playersReady}
               onBoardUpdate={handleBoardUpdate}
             />
           ))
@@ -210,7 +210,7 @@ export default function Board({
       <GameOptions
         userName={userName}
         userTurn={userTurn}
-        gameStart={gameStart}
+        playersReady={playersReady}
         currentBoard={board}
         quitGame={quitGame}
         playBoard={playBoard}

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 export default function GameOptions({
   userName,
   userTurn,
-  gameStart,
+  playersReady,
   currentBoard,
   quitGame,
   playBoard,
@@ -11,7 +11,7 @@ export default function GameOptions({
   const [seconds, setSeconds] = useState(10);
 
   useEffect(() => {
-    if (gameStart && userName === userTurn) {
+    if (playersReady >= 2 && userName === userTurn) {
       if (seconds > 0) {
         const timer = setTimeout(() => setSeconds(seconds - 1), 1000);
         return () => {
@@ -24,7 +24,7 @@ export default function GameOptions({
     } else {
       setSeconds(10);
     }
-  }, [seconds, userName, userTurn, gameStart, currentBoard, playBoard]);
+  }, [seconds, userName, userTurn, playersReady, currentBoard, playBoard]);
 
   function handleQuit(e) {
     e.preventDefault();

@@ -6,7 +6,7 @@ export default function Button({
   userSign,
   value,
   winner,
-  gameStart,
+  playersReady,
   onBoardUpdate,
 }) {
   function handleButtonClick() {
@@ -25,7 +25,11 @@ export default function Button({
           : "btn"
       }
       disabled={
-        gameStart ? (userName === userTurn && !value ? false : true) : true
+        playersReady >= 2
+          ? userName === userTurn && !value
+            ? false
+            : true
+          : true
       }
       onClick={handleButtonClick}
       aria-checked={value || winner != "" ? true : false}>
