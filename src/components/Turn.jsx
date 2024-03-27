@@ -3,6 +3,7 @@ export default function Turn({
   userTurn,
   userSign,
   enemy,
+  message,
   playersReady,
 }) {
   const msgTurn = isYourTurn() ? "Your Turn" : `${userTurn}'s Turn`;
@@ -18,6 +19,8 @@ export default function Turn({
           ? playersReady >= 2
             ? msgTurn
             : `Waiting for ${enemy}`
+          : message
+          ? message
           : `Waiting for opponent...`}
       </span>
       <div

@@ -13,6 +13,7 @@ export default function Board({
   userSign,
   winner,
   playersReady,
+  message,
   setBoard,
   playBoard,
   resetGame,
@@ -179,6 +180,7 @@ export default function Board({
         userTurn={userTurn}
         userSign={userSign}
         enemy={enemy}
+        message={message}
         playersReady={playersReady}
       />
       {winner && (

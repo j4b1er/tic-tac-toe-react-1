@@ -25,8 +25,8 @@ export default function App() {
   const [enemy, setEnemy] = useState("");
   const [userTurn, setUserTurn] = useState("");
   const [userSign, setUserSign] = useState("");
-  const [gameStart, setGameStart] = useState(false);
   const [playersReady, setPlayersReady] = useState(0);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     if (!room) {
@@ -80,7 +80,7 @@ export default function App() {
       setUserTurn("");
       // setGameStart(false);
       setPlayersReady(1);
-      // console.log(`${gameInfo.userLeaving} Left room ${gameInfo.room}`);
+      setMessage(`Enemy ${gameInfo.userLeaving} left the Room`);
     });
 
     socket.on("user_disconnected", (user) => {
@@ -90,6 +90,7 @@ export default function App() {
       setUserTurn("");
       // setGameStart(false);
       setPlayersReady(1);
+      setMessage(`Enemy ${user} left the Room`);
       // console.log(`${user} disconnected`);
     });
   }, [socket]);
@@ -179,6 +180,7 @@ export default function App() {
           userSign={userSign}
           winner={winner}
           playersReady={playersReady}
+          message={message}
           setBoard={setBoard}
           playBoard={playBoard}
           resetGame={resetGame}
