@@ -80,7 +80,7 @@ export default function App() {
       setUserTurn("");
       // setGameStart(false);
       setPlayersReady(1);
-      setMessage(`Enemy ${gameInfo.userLeaving} left the Room`);
+      setMessage(`${gameInfo.userLeaving} left the Room`);
     });
 
     socket.on("user_disconnected", (user) => {
@@ -90,7 +90,7 @@ export default function App() {
       setUserTurn("");
       // setGameStart(false);
       setPlayersReady(1);
-      setMessage(`Enemy ${user} left the Room`);
+      setMessage(`${user} left the Room`);
       // console.log(`${user} disconnected`);
     });
   }, [socket]);
