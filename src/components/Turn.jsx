@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 export default function Turn({
   userName,
   userTurn,
@@ -6,6 +8,19 @@ export default function Turn({
   message,
   playersReady,
 }) {
+  const [msg, setMsg] = useState("");
+
+  useEffect(() => {
+    setMsg(message);
+    const timeoutMsg = setTimeout(() => {
+      if (message) {
+        setMsg(`Waiting for opponent...`);
+      }
+    }, 2000);
+
+    return () => clearTimeout(timeoutMsg);
+  }, [message]);
+
   const msgTurn = isYourTurn() ? "Your Turn" : `${userTurn}'s Turn`;
 
   function isYourTurn() {
@@ -20,7 +35,7 @@ export default function Turn({
             ? msgTurn
             : `Waiting for ${enemy}`
           : message
-          ? message
+          ? msg
           : `Waiting for opponent...`}
       </span>
       <div

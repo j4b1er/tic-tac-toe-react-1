@@ -147,8 +147,8 @@ export default function App() {
     setEnemy("");
     setUserTurn("");
     setUserSign("");
-    // setGameStart(false);
     setPlayersReady(0);
+    setMessage("");
     socket.emit("quit_game", { room, userLeaving: userName });
   }
 
