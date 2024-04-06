@@ -45,11 +45,9 @@ io.on("connection", (socket) => {
   //2nd player join an existing room
   socket.on("join_room", async (enemy) => {
     const roomObj = roomsArray.filter((obj) => obj.id === enemy.roomId);
-    // console.log(roomObj.length);
     if (roomObj.length) {
       const roomPlayers = await io.of("/").in(enemy.roomId).fetchSockets();
       if (roomPlayers.length < 2) {
-        // console.log(`connected ${enemy.user} to room ${enemy.id}`);
         socket.data.user = enemy.user;
         socket.data.room = enemy.roomId;
         socket.join(enemy.roomId);
@@ -75,7 +73,6 @@ io.on("connection", (socket) => {
       } else {
         //room full
         socket.emit("room_joined", { id: enemy.roomId, status: 3 });
-        // console.log("room full");
       }
     } else {
       //room not found
@@ -108,9 +105,6 @@ io.on("connection", (socket) => {
     const userRoom = socket.data.room;
     if (userRoom) {
       socket.to(userRoom).emit("user_disconnected", userDisc);
-      // console.log(
-      //   `${socket.data.user} disconnected from room ${roomsArray[1]}`
-      // );
     }
     const roomPlayers = await io.of("/").in(userRoom).fetchSockets();
     if (roomPlayers.length === 1) {

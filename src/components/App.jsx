@@ -53,24 +53,19 @@ export default function App() {
       });
     }
     socket.on("enemy_joined", (enemy) => {
-      // if (!gameStart) setGameStart(true);
       setEnemy(enemy.enemy);
       setUserTurn(enemy.playerStart);
       setUserSign(enemy.masterSign);
       setPlayersReady(2);
-      // console.log(`${enemy.enemy} joined the room`);
     });
     socket.on("receive_board", (game) => {
       setUserTurn(userName);
       setBoard(game.board);
       setWinner(game.winner);
-      // setGameStart(game.winner === "");
       setPlayersReady((value) => (game.winner === "" ? value : 0));
-      // console.log(`Board received from ${game.user}`);
     });
     socket.on("player_reset", () => {
       setBoard(cleanBoard);
-      // setGameStart(true);
       setPlayersReady((value) => value + 1);
     });
     socket.on("player_quit", (gameInfo) => {
@@ -78,7 +73,6 @@ export default function App() {
       setEnemy("");
       setUserSign("");
       setUserTurn("");
-      // setGameStart(false);
       setPlayersReady(1);
       setMessage(`${gameInfo.userLeaving} left the Room`);
     });
@@ -88,10 +82,8 @@ export default function App() {
       setEnemy("");
       setUserSign("");
       setUserTurn("");
-      // setGameStart(false);
       setPlayersReady(1);
       setMessage(`${user} left the Room`);
-      // console.log(`${user} disconnected`);
     });
   }, [socket]);
 
@@ -116,13 +108,11 @@ export default function App() {
   function joinRoom(roomEntered) {
     if (!room)
       socket.emit("join_room", { roomId: roomEntered, user: userName });
-    // if (!gameStart) setGameStart(true);
   }
 
   function playBoard(board, userWinner = "") {
     setUserTurn(enemy);
     setWinner(userWinner);
-    // if (userWinner !== "") setGameStart(false);
     if (userWinner !== "") setPlayersReady(0);
     socket.emit("play_board", {
       board,
@@ -135,7 +125,6 @@ export default function App() {
   function resetGame() {
     setBoard(cleanBoard);
     setWinner("");
-    // setPlayersReady((value) => (value === 0 ? 1 : 2));
     setPlayersReady((value) => value + 1);
     socket.emit("game_reset", room);
   }
